@@ -6,8 +6,10 @@ that produces coaching nudges while a call is still in progress.
 
 All four share one codebase: a `core/` layer of speech, language, retrieval and
 telemetry adapters, with thin applications on top. See
-[docs/architecture.md](docs/architecture.md) for the design and
-[docs/decisions.md](docs/decisions.md) for why each choice was made.
+[docs/architecture.md](docs/architecture.md) for the design,
+[docs/decisions.md](docs/decisions.md) for why each choice was made, and
+[docs/provider-verification.md](docs/provider-verification.md) for measured
+provider performance.
 
 ## Status
 
@@ -20,22 +22,26 @@ telemetry adapters, with thin applications on top. See
 
 ## Requirements
 
-- Python 3.12
-- An NVIDIA GPU is optional; local speech recognition and embeddings fall back
-  to CPU, more slowly.
-- `ffmpeg` for audio conversion.
+Python 3.12. No GPU required — speech recognition and embeddings run on CPU at
+usable speed (measured real-time factor 0.4 for transcription). No `ffmpeg`
+needed: the browser captures raw PCM directly.
 
 ## Setup
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
+pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
 cp .env.example .env      # then fill in the keys you have
+python scripts/smoke_test.py
 ```
 
-Only `GROQ_API_KEY` is needed to start; every other provider has either a local
-fallback or needs no key at all. With no keys at all the system still runs
-entirely locally, more slowly.
+Only `GROQ_API_KEY` is needed to start; every other provider either has a local
+fallback or needs no key at all.
+
+Run `scripts/smoke_test.py` before anything else. It verifies speech
+recognition, synthesis, embeddings and the language model, reporting each with a
+timing, and skips rather than fails when an optional key is absent.
 
 ## Layout
 

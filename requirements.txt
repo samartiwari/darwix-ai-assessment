@@ -1,0 +1,41 @@
+# Install with:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements.txt
+#
+# Torch is installed CPU-only and separately. Local speech recognition and
+# embeddings are the fallback path, not the hot path, and the CUDA build costs
+# ~2.5GB plus cuDNN setup that is easy to break.
+
+# Server and configuration
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-dotenv>=1.0
+pyyaml>=6.0
+pydantic>=2.9
+httpx>=0.27
+
+# Language models
+groq>=0.13
+google-genai>=0.3
+
+# Speech
+edge-tts>=6.1
+faster-whisper>=1.1
+soundfile>=0.12
+numpy>=1.26
+
+# Knowledge base: extraction and parsing
+trafilatura>=1.12
+pdfplumber>=0.11
+beautifulsoup4>=4.12
+lxml>=5.3
+
+# Knowledge base: dedupe, embedding, retrieval
+datasketch>=1.6
+sentence-transformers>=3.3
+faiss-cpu>=1.9
+rank-bm25>=0.2.2
+
+# Development
+pytest>=8.3
+ruff>=0.8
