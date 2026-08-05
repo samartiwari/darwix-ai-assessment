@@ -1,0 +1,64 @@
+# Knowledge-base sources.
+#
+# Some entries below are known to fail — bot-blocked, redirect loops, soft-404
+# pages that return navigation chrome with an error status, and one path
+# disallowed by robots.txt. They are kept deliberately. Extraction failures and
+# source errors have to be detected and reported rather than silently ingested,
+# and demonstrating that needs real failures rather than hypothetical ones.
+#
+# category is a hint for the taxonomy, refined during classification.
+# The agent speaks for a fictional brand; these URLs are the cited provenance.
+
+brand:
+  name: Arogya First
+  disclaimer: >
+    A fictional insurer used for this prototype. Knowledge-base records cite
+    real public sources; no real company is represented.
+
+sources:
+  # --- Domain and regulatory background (encyclopedic) -------------------
+  - url: https://en.wikipedia.org/wiki/Health_insurance
+    category: product
+    note: general concepts, deductibles, co-pay, exclusions
+  - url: https://en.wikipedia.org/wiki/Health_insurance_in_India
+    category: product
+    note: Indian market structure and terminology
+  - url: https://en.wikipedia.org/wiki/Pre-existing_condition
+    category: policy_rule
+    note: pre-existing disease definitions and waiting periods
+  - url: https://en.wikipedia.org/wiki/Insurance_Regulatory_and_Development_Authority
+    category: policy_rule
+    note: regulator, grievance route, policyholder protection
+  - url: https://en.wikipedia.org/wiki/Ayushman_Bharat_Yojana
+    category: policy_rule
+    note: government scheme, eligibility rules
+  - url: https://en.wikipedia.org/wiki/Health_insurance_marketplace
+    category: product
+    note: plan tiers and comparison concepts
+
+  # --- Insurer product content (real marketing pages, heavy boilerplate) --
+  - url: https://www.nivabupa.com/health-insurance-plans.html
+    category: product
+    note: product listing; navigation and footer chrome to strip
+  - url: https://www.hdfcergo.com/health-insurance
+    category: product
+    note: extracts as a plan comparison table
+
+  # --- Document parsing path (multi-page PDF with tables) -----------------
+  - url: https://www.niti.gov.in/sites/default/files/2021-10/HealthInsurance-forIndiasMissingMiddle_28-10-2021.pdf
+    category: policy_rule
+    note: 64-page policy report, tables on affordability and coverage gaps
+
+  # --- Known-failing sources, kept to exercise failure handling ----------
+  - url: https://www.nivabupa.com/frequently-asked-questions.html
+    category: faq
+    note: soft-404 — returns 404 with ~280 words of navigation chrome
+  - url: https://www.hdfcergo.com/customer-care/faqs
+    category: faq
+    note: redirect loop
+  - url: https://www.careinsurance.com/frequently-asked-questions.html
+    category: faq
+    note: answers automated requests with 403
+  - url: https://irdai.gov.in/consumer-education
+    category: policy_rule
+    note: disallowed by robots.txt — must be refused, not fetched
