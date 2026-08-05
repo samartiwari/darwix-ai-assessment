@@ -1,0 +1,45 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Models and caches (large, reproducible from code)
+models/
+.cache/
+*.gguf
+*.bin
+*.onnx
+
+# Build artifacts of the knowledge base — rebuilt by `make kb`
+data/raw/
+data/interim/
+*.faiss
+kb.sqlite
+kb.sqlite-*
+
+# Scratch audio (deliverable recordings under deliverables/ ARE committed)
+scratch/
+*.tmp.wav
+
+# Telemetry logs — summaries are committed, raw streams are not
+logs/
+*.jsonl
+!deliverables/**/*.jsonl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+node_modules/
