@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-STAGES = ("collect",)
+STAGES = ("collect", "build")
 
 
 def main() -> int:
@@ -30,6 +30,11 @@ def main() -> int:
         from core.kb import ingest
 
         ingest.main(use_cache=not args.no_cache)
+
+    if args.stage in ("build", "all"):
+        from core.kb import build
+
+        build.main()
 
     return 0
 

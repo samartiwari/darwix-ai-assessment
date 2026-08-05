@@ -34,7 +34,8 @@ lxml>=5.3
 datasketch>=1.6
 sentence-transformers>=3.3
 faiss-cpu>=1.9
-rank-bm25>=0.2.2
+# Lexical search uses SQLite FTS5, which ships with Python and stays in sync
+# with the records table. No separate BM25 library is needed.
 
 # Development
 pytest>=8.3

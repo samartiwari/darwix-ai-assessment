@@ -43,3 +43,4 @@ logs/
 .idea/
 .vscode/
 node_modules/
+kb.manifest.json
