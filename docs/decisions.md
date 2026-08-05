@@ -74,6 +74,49 @@ are built into the nudge path from the start rather than added once the output
 becomes noisy. A pipeline that surfaces every detected signal is not useful to an
 agent on a live call; the value is in what it declines to say.
 
+## Personal data: quarantine as well as masking
+
+Masking every detected identifier and indexing the result would have been the
+simpler rule. It is also the wrong rule for a lead export: a knowledge base a
+voice agent retrieves from has no legitimate reason to hold customer records, and
+a masked record still discloses that a person of a given age in a given city
+enquired about cover for a named condition. Documents are therefore split by
+whether personal data is incidental or the substance — the first is masked and
+flagged, the second is quarantined and never indexed.
+
+The threshold is a density measure, which is crude. A short document with one
+example call could in principle cross it. The report states which documents were
+quarantined and why, so the decision is reviewable rather than invisible.
+
+## Context-required detection for ambiguous identifiers
+
+Detectors for Aadhaar numbers and bare mobile numbers require a cue word nearby;
+email addresses and PANs do not, because their shape is decisive on its own.
+
+This was not the original design. Matching on shape alone, the pipeline redacted
+premium tables in a 64-page policy report as Aadhaar numbers and phone numbers —
+`831 1046 1102` became three redaction tokens, and the figures were gone. The
+same pass masked credited report authors and a named regulator's chairman as
+customer data. Precision matters more than recall here, because a false positive
+destroys content that retrieval later depends on, silently.
+
+Recall is genuinely lower as a result: a bare Aadhaar number with no surrounding
+cue is not detected. That limit is stated in the ingestion report rather than
+left for a reviewer to discover.
+
+## Contradictions are reported, not resolved
+
+Where sources state different numbers for the same rule, both records are kept
+and the conflict is listed in the ingestion report. The knowledge base found
+seven different values for the pre-existing disease waiting period across public
+sources and the internal documents, including a genuine 24-month against
+36-month conflict between the FAQ sheet and the brochure.
+
+Picking a winner automatically — most recent, most frequent, most authoritative
+source — would produce a knowledge base that looks consistent while burying a
+real error someone needs to settle. Retrieval returns both records with their
+provenance so the disagreement is visible at the point of use.
+
 ## Real sources, fictional brand
 
 The knowledge base is built from genuinely messy public content so that

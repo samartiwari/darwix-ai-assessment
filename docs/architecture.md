@@ -85,7 +85,7 @@ fetch → extract → clean → deduplicate → detect PII → chunk → embed �
 | extract | `trafilatura` for HTML main content, `pdfplumber` for PDFs including tables | pages yielding under 200 characters are flagged `extraction_suspect` for review |
 | clean | strip nav/header/footer/cookie banners, collapse whitespace, normalize headings, dates to ISO, currency to a canonical form, unify terminology via a synonym map | source contradictions flagged rather than auto-resolved |
 | deduplicate | SHA-256 for exact duplicates, MinHash/Jaccard at 0.85 for near-duplicates | the longer record is kept, the shorter recorded as `duplicate_of` |
-| PII | regex detectors for phone, email, Aadhaar-style IDs, policy numbers, plus name heuristics | records are masked in place and marked `pii=true`; unmasked text never enters the index |
+| PII | detectors for email, phone, PAN, Aadhaar, policy and lead references, plus names behind a role cue | two outcomes: incidental personal data is masked in place and flagged `pii=true`; a document whose substance *is* personal data is quarantined and never indexed |
 | chunk | structure-aware — split on headings, target ~350 tokens with 60-token overlap, never split a table row from its header | oversized atomic blocks kept whole and marked |
 | embed | local `bge-small-en-v1.5` (English), `bge-m3` (multilingual for Q3) | runs locally, so indexing never depends on a rate-limited API |
 | index | SQLite for records and metadata, FAISS for vectors | index rebuilt deterministically from SQLite by `make kb` |
