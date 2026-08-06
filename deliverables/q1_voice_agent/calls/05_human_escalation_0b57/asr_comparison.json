@@ -1,0 +1,26 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Yes alright.",
+    "transcribed": "Yes, all right.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 2,
+    "spoken": "My father is sixty seven and he had a cardiac stent fitted in two thousand nineteen.",
+    "transcribed": "My father is 67 and he had a cardiac stent fitted in 2019.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 3,
+    "spoken": "I would rather just speak to a real person about this please.",
+    "transcribed": "I would rather just speak to a real person about this please.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  }
+]

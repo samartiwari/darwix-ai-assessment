@@ -1,0 +1,184 @@
+{
+  "scenario": "04_out_of_scope",
+  "pack": "in_health_en",
+  "market": "India",
+  "brand": "Arogya First",
+  "state": {
+    "call_id": "04_out_of_scope_4709",
+    "pack_id": "in_health_en",
+    "stage": "action",
+    "slots": {
+      "members": "1",
+      "age": "45",
+      "city": "Chennai",
+      "conditions": "none"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Yes, I have a minute.",
+        "agent": "Who would you like to cover — just yourself, or family members as well?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [],
+        "retrieval_confidence": 0.608,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1112.09,
+          "asr": 387.06,
+          "retrieval": 23.57,
+          "llm": 594.48
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "Before that, what will the weather be like in Mumbai tomorrow?",
+        "agent": "That is not something I have information on, and I would rather not guess. I can have a licensed advisor confirm it for you. Would a callback tomorrow morning work?",
+        "intent": "out_of_scope",
+        "grounded": false,
+        "answer_source": "insufficient_context",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.483,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1587.47,
+          "asr": 407.2,
+          "retrieval": 28.57,
+          "llm": 702.78
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "Alright. And what is your company share price?",
+        "agent": "That is not something I have information on, and I would rather not guess. I can have a licensed advisor confirm it for you. Would a callback tomorrow morning work?",
+        "intent": "out_of_scope",
+        "grounded": false,
+        "answer_source": "insufficient_context",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.633,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1240.88,
+          "asr": 380.65,
+          "retrieval": 27.14,
+          "llm": 566.3
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 4,
+        "caller": "Fine. I am 45, just myself, based in Chennai, no conditions.",
+        "agent": "And what would be your approximate budget per year for the premium?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_qualification_int_004_002",
+            "title": "Age eligibility",
+            "source_url": "internal://arogya_first_qualification_rules.md",
+            "section_path": "Arogya First — Lead Qualification Rules > Age eligibility",
+            "category": "qualification",
+            "version": "1.4",
+            "similarity": 0.652
+          },
+          {
+            "record_id": "kb_faq_int_001_010",
+            "title": "What tax benefit do I get?",
+            "source_url": "internal://arogya_first_faq.md",
+            "section_path": "Arogya First — Customer FAQ Sheet > What tax benefit do I get?",
+            "category": "faq",
+            "version": "1.9",
+            "similarity": 0.618
+          }
+        ],
+        "retrieval_confidence": 0.652,
+        "retrieval_abstained": false,
+        "slots_captured": {
+          "members": "1",
+          "age": "45",
+          "city": "Chennai",
+          "conditions": "none"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1470.14,
+          "asr": 442.58,
+          "retrieval": 27.84,
+          "llm": 654.95
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [
+      "members"
+    ],
+    "outcome": "qualified",
+    "started_at": "2026-08-06T13:57:52+00:00"
+  },
+  "citations": [
+    {
+      "record_id": "kb_qualification_int_004_002",
+      "title": "Age eligibility",
+      "source_url": "internal://arogya_first_qualification_rules.md",
+      "section_path": "Arogya First — Lead Qualification Rules > Age eligibility",
+      "category": "qualification",
+      "version": "1.4",
+      "similarity": 0.652
+    },
+    {
+      "record_id": "kb_faq_int_001_010",
+      "title": "What tax benefit do I get?",
+      "source_url": "internal://arogya_first_faq.md",
+      "section_path": "Arogya First — Customer FAQ Sheet > What tax benefit do I get?",
+      "category": "faq",
+      "version": "1.9",
+      "similarity": 0.618
+    }
+  ],
+  "lead": {
+    "lead_reference": "AF-2026-08-04_OUT_OF_SCOPE_4709",
+    "created_at": "2026-08-06T13:58:12+00:00",
+    "market": "in_health_en",
+    "brand": "Arogya First",
+    "channel": "inbound_web_call",
+    "outcome": "qualified",
+    "captured": {
+      "members": "1",
+      "age": "45",
+      "city": "Chennai",
+      "conditions": "none"
+    },
+    "missing_required": [],
+    "unresolved_conflicts": [],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 4,
+    "records_cited": [
+      "kb_qualification_int_004_002",
+      "kb_faq_int_001_010"
+    ],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "trace_id": "552286638c33",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:53.837+00:00",
+    "total_ms": 3292.56,
+    "stages": {
+      "caller_synthesis": 1112.09,
+      "asr": 387.06,
+      "retrieval": 23.57,
+      "llm": 594.48,
+      "agent_synthesis": 1175.35
+    },
+    "cumulative": {
+      "caller_synthesis": 1112.09,
+      "asr": 1499.15,
+      "retrieval": 1522.72,
+      "llm": 2117.2,
+      "agent_synthesis": 3292.56
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "f8e7108bf073",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:57.129+00:00",
+    "total_ms": 5588.75,
+    "stages": {
+      "caller_synthesis": 1587.47,
+      "asr": 407.2,
+      "retrieval": 28.57,
+      "llm": 702.78,
+      "agent_synthesis": 2862.73
+    },
+    "cumulative": {
+      "caller_synthesis": 1587.47,
+      "asr": 1994.68,
+      "retrieval": 2023.24,
+      "llm": 2726.02,
+      "agent_synthesis": 5588.75
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "ac4cb894e962",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:58:02.719+00:00",
+    "total_ms": 3877.71,
+    "stages": {
+      "caller_synthesis": 1240.88,
+      "asr": 380.65,
+      "retrieval": 27.14,
+      "llm": 566.3,
+      "agent_synthesis": 1662.74
+    },
+    "cumulative": {
+      "caller_synthesis": 1240.88,
+      "asr": 1621.53,
+      "retrieval": 1648.67,
+      "llm": 2214.97,
+      "agent_synthesis": 3877.71
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "4740dbb6ab5a",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:58:06.597+00:00",
+    "total_ms": 4442.88,
+    "stages": {
+      "caller_synthesis": 1470.14,
+      "asr": 442.58,
+      "retrieval": 27.84,
+      "llm": 654.95,
+      "agent_synthesis": 1847.38
+    },
+    "cumulative": {
+      "caller_synthesis": 1470.14,
+      "asr": 1912.71,
+      "retrieval": 1940.56,
+      "llm": 2595.51,
+      "agent_synthesis": 4442.88
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  }
+]

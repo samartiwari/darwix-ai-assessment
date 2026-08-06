@@ -1,0 +1,34 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Sure.",
+    "transcribed": "Sure.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 2,
+    "spoken": "It is just for me, I am thirty years old.",
+    "transcribed": "It is just for me, I am 30 years old.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 3,
+    "spoken": "Actually, I was born in nineteen seventy five.",
+    "transcribed": "Actually, I was born in 1975.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 4,
+    "spoken": "I would rather not say which city.",
+    "transcribed": "I would rather not say which city.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  }
+]

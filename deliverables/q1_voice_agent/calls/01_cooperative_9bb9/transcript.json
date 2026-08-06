@@ -1,0 +1,277 @@
+{
+  "scenario": "01_cooperative",
+  "pack": "in_health_en",
+  "market": "India",
+  "brand": "Arogya First",
+  "state": {
+    "call_id": "01_cooperative_9bb9",
+    "pack_id": "in_health_en",
+    "stage": "closed",
+    "slots": {
+      "members": "4",
+      "age": "38",
+      "city": "Pune",
+      "conditions": "none",
+      "budget": "Rs 18 lakhs"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Yes that is fine, please go ahead.",
+        "agent": "Who would you like to cover — just yourself, or family members as well?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [
+          {
+            "record_id": "kb_process_int_005_001",
+            "title": "Consent",
+            "source_url": "internal://arogya_first_sales_script.md",
+            "section_path": "Arogya First — Outbound Lead Qualification Script > Consent",
+            "category": "process",
+            "version": "3.0",
+            "similarity": 0.65
+          },
+          {
+            "record_id": "kb_qualification_int_004_002",
+            "title": "Age eligibility",
+            "source_url": "internal://arogya_first_qualification_rules.md",
+            "section_path": "Arogya First — Lead Qualification Rules > Age eligibility",
+            "category": "qualification",
+            "version": "1.4",
+            "similarity": 0.594
+          }
+        ],
+        "retrieval_confidence": 0.65,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1815.61,
+          "asr": 630.22,
+          "retrieval": 10271.77,
+          "llm": 559.97
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "I want to cover myself, my wife and our two children.",
+        "agent": "Alright, so there are four members in your family to be covered. And the age of the eldest person to be covered?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.634,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "members": "4"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1231.51,
+          "asr": 379.77,
+          "retrieval": 26.25,
+          "llm": 521.31
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "I am 38, the eldest of us.",
+        "agent": "Which city are you in?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.535,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "age": "38"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1117.51,
+          "asr": 459.79,
+          "retrieval": 27.03,
+          "llm": 550.7
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 4,
+        "caller": "We live in Pune.",
+        "agent": "Has anyone to be covered been diagnosed with or treated for any medical condition — diabetes, blood pressure, thyroid, anything else?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.539,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "city": "Pune"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1165.14,
+          "asr": 381.35,
+          "retrieval": 23.8,
+          "llm": 625.04
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 5,
+        "caller": "Nobody has any medical conditions, we are all healthy.",
+        "agent": "That's great to hear. Can you please tell me what kind of budget you have in mind for the premium?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.633,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "conditions": "none"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1186.23,
+          "asr": 390.03,
+          "retrieval": 27.37,
+          "llm": 610.77
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 6,
+        "caller": "My budget is around $22,000 a year.",
+        "agent": "I've noted that, however, I'd like to clarify that our conversation is in Indian rupees, so I'll assume you meant around Rs 18 lakhs per year. Let me summarize what we've discussed so far.",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "action",
+        "citations": [
+          {
+            "record_id": "kb_qualification_int_004_005",
+            "title": "Budget guidance",
+            "source_url": "internal://arogya_first_qualification_rules.md",
+            "section_path": "Arogya First — Lead Qualification Rules > Budget guidance",
+            "category": "qualification",
+            "version": "1.4",
+            "similarity": 0.641
+          },
+          {
+            "record_id": "kb_objection_int_002_001",
+            "title": "\"It is too expensive\"",
+            "source_url": "internal://arogya_first_objections.md",
+            "section_path": "Arogya First — Objection Handling > \"It is too expensive\"",
+            "category": "objection",
+            "version": "1.6",
+            "similarity": 0.583
+          }
+        ],
+        "retrieval_confidence": 0.641,
+        "retrieval_abstained": false,
+        "slots_captured": {
+          "budget": "Rs 18 lakhs"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1280.33,
+          "asr": 382.89,
+          "retrieval": 25.65,
+          "llm": 1110.88
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [
+      "members",
+      "age",
+      "city",
+      "conditions"
+    ],
+    "outcome": "qualified",
+    "started_at": "2026-08-06T13:56:30+00:00"
+  },
+  "citations": [
+    {
+      "record_id": "kb_process_int_005_001",
+      "title": "Consent",
+      "source_url": "internal://arogya_first_sales_script.md",
+      "section_path": "Arogya First — Outbound Lead Qualification Script > Consent",
+      "category": "process",
+      "version": "3.0",
+      "similarity": 0.65
+    },
+    {
+      "record_id": "kb_qualification_int_004_002",
+      "title": "Age eligibility",
+      "source_url": "internal://arogya_first_qualification_rules.md",
+      "section_path": "Arogya First — Lead Qualification Rules > Age eligibility",
+      "category": "qualification",
+      "version": "1.4",
+      "similarity": 0.594
+    },
+    {
+      "record_id": "kb_qualification_int_004_005",
+      "title": "Budget guidance",
+      "source_url": "internal://arogya_first_qualification_rules.md",
+      "section_path": "Arogya First — Lead Qualification Rules > Budget guidance",
+      "category": "qualification",
+      "version": "1.4",
+      "similarity": 0.641
+    },
+    {
+      "record_id": "kb_objection_int_002_001",
+      "title": "\"It is too expensive\"",
+      "source_url": "internal://arogya_first_objections.md",
+      "section_path": "Arogya First — Objection Handling > \"It is too expensive\"",
+      "category": "objection",
+      "version": "1.6",
+      "similarity": 0.583
+    }
+  ],
+  "lead": {
+    "lead_reference": "AF-2026-08-01_COOPERATIVE_9BB9",
+    "created_at": "2026-08-06T13:57:10+00:00",
+    "market": "in_health_en",
+    "brand": "Arogya First",
+    "channel": "inbound_web_call",
+    "outcome": "qualified",
+    "captured": {
+      "members": "4",
+      "age": "38",
+      "city": "Pune",
+      "conditions": "none",
+      "budget": "Rs 18 lakhs"
+    },
+    "missing_required": [],
+    "unresolved_conflicts": [],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 6,
+    "records_cited": [
+      "kb_process_int_005_001",
+      "kb_qualification_int_004_002",
+      "kb_qualification_int_004_005",
+      "kb_objection_int_002_001"
+    ],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

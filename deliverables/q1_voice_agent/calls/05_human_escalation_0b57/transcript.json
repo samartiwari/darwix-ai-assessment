@@ -1,0 +1,118 @@
+{
+  "scenario": "05_human_escalation",
+  "pack": "in_health_en",
+  "market": "India",
+  "brand": "Arogya First",
+  "state": {
+    "call_id": "05_human_escalation_0b57",
+    "pack_id": "in_health_en",
+    "stage": "closed",
+    "slots": {
+      "age": "67",
+      "conditions": "cardiac stent fitted in 2019"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Yes, all right.",
+        "agent": "Who would you like to cover — just yourself, or family members as well?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [],
+        "retrieval_confidence": 0.514,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1151.28,
+          "asr": 382.32,
+          "retrieval": 26.01,
+          "llm": 508.73
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "My father is 67 and he had a cardiac stent fitted in 2019.",
+        "agent": "I've noted that your father is 67 and had a cardiac stent fitted in 2019. And how many people would you like to cover under the policy?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.61,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "age": "67",
+          "conditions": "cardiac stent fitted in 2019"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1343.54,
+          "asr": 437.6,
+          "retrieval": 28.42,
+          "llm": 650.97
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "I would rather just speak to a real person about this please.",
+        "agent": "Of course. I will arrange for a licensed advisor to speak with you. They will call you back at the number you are speaking from.",
+        "intent": "escalation_request",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.633,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1467.44,
+          "asr": 391.41,
+          "retrieval": 28.06,
+          "llm": 684.64
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": true,
+    "escalation_reason": "caller asked for a person",
+    "asked": [
+      "members"
+    ],
+    "outcome": "escalated",
+    "started_at": "2026-08-06T13:58:12+00:00"
+  },
+  "citations": [],
+  "lead": {
+    "lead_reference": "AF-2026-08-05_HUMAN_ESCALATION_0B57",
+    "created_at": "2026-08-06T13:58:28+00:00",
+    "market": "in_health_en",
+    "brand": "Arogya First",
+    "channel": "inbound_web_call",
+    "outcome": "escalated",
+    "captured": {
+      "age": "67",
+      "conditions": "cardiac stent fitted in 2019"
+    },
+    "missing_required": [
+      "members",
+      "city"
+    ],
+    "unresolved_conflicts": [],
+    "escalated": true,
+    "escalation_reason": "caller asked for a person",
+    "requires_underwriter_review": true,
+    "turns": 3,
+    "records_cited": [],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

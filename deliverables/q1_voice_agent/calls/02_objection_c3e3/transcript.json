@@ -1,0 +1,247 @@
+{
+  "scenario": "02_objection",
+  "pack": "in_health_en",
+  "market": "India",
+  "brand": "Arogya First",
+  "state": {
+    "call_id": "02_objection_c3e3",
+    "pack_id": "in_health_en",
+    "stage": "closed",
+    "slots": {
+      "members": "1",
+      "age": "41",
+      "city": "Bangalore",
+      "conditions": "None"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Yes, go ahead.",
+        "agent": "Who would you like to cover — just yourself, or family members as well?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [],
+        "retrieval_confidence": 0.638,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1073.28,
+          "asr": 392.8,
+          "retrieval": 26.85,
+          "llm": 519.62
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "Just myself, I am 41, and I live in Bangalore.",
+        "agent": "Alright, so you're 41 years old and based in Bangalore, and you're looking to cover just yourself. Do you have any pre-existing medical conditions I should know about?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.5,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "members": "1",
+          "age": "41",
+          "city": "Bangalore"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1524.0,
+          "asr": 386.97,
+          "retrieval": 29.14,
+          "llm": 640.83
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "No conditions at all.",
+        "agent": "Alright, so you don't have any pre-existing medical conditions. What's your approximate budget for the premium, per year?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_qualification_int_004_004",
+            "title": "Declared conditions",
+            "source_url": "internal://arogya_first_qualification_rules.md",
+            "section_path": "Arogya First — Lead Qualification Rules > Declared conditions",
+            "category": "qualification",
+            "version": "1.4",
+            "similarity": 0.658
+          },
+          {
+            "record_id": "kb_objection_int_002_009",
+            "title": "\"I do not want to share my medical details on a recorded call\"",
+            "source_url": "internal://arogya_first_objections.md",
+            "section_path": "Arogya First — Objection Handling > \"I do not want to share my medical details on a recorded call\"",
+            "category": "objection",
+            "version": "1.6",
+            "similarity": 0.598
+          }
+        ],
+        "retrieval_confidence": 0.658,
+        "retrieval_abstained": false,
+        "slots_captured": {
+          "conditions": "None"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1125.67,
+          "asr": 387.6,
+          "retrieval": 25.31,
+          "llm": 726.36
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 4,
+        "caller": "Honestly, this sounds far too expensive for me.",
+        "agent": "I understand your concern about the cost, but let me ask, have you considered a top-up plan, which could be more affordable, especially since you're already in a relatively lower-priced zone like Bangalore, and you can also claim a tax deduction under Section 80D?",
+        "intent": "objection",
+        "grounded": true,
+        "answer_source": "context",
+        "stage": "action",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_002_001",
+            "title": "\"It is too expensive\"",
+            "source_url": "internal://arogya_first_objections.md",
+            "section_path": "Arogya First — Objection Handling > \"It is too expensive\"",
+            "category": "objection",
+            "version": "1.6",
+            "similarity": 0.648
+          }
+        ],
+        "retrieval_confidence": 0.648,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1290.16,
+          "asr": 394.42,
+          "retrieval": 28.7,
+          "llm": 760.65
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 5,
+        "caller": "I already have cover through my employer anyway.",
+        "agent": "That's great that you have employer cover, but keep in mind that it usually ends when your employment ends, and the cover amount is often limited to around 5 lakhs. A personal policy like ours can provide continuity and higher coverage, and you might consider a Secure Top-up to raise your total limit.",
+        "intent": "objection",
+        "grounded": true,
+        "answer_source": "context",
+        "stage": "closed",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_002_002",
+            "title": "\"I already have cover from my employer\"",
+            "source_url": "internal://arogya_first_objections.md",
+            "section_path": "Arogya First — Objection Handling > \"I already have cover from my employer\"",
+            "category": "objection",
+            "version": "1.6",
+            "similarity": 0.745
+          }
+        ],
+        "retrieval_confidence": 0.745,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1059.38,
+          "asr": 425.61,
+          "retrieval": 23.59,
+          "llm": 1321.93
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [
+      "members"
+    ],
+    "outcome": "qualified",
+    "started_at": "2026-08-06T13:57:10+00:00"
+  },
+  "citations": [
+    {
+      "record_id": "kb_qualification_int_004_004",
+      "title": "Declared conditions",
+      "source_url": "internal://arogya_first_qualification_rules.md",
+      "section_path": "Arogya First — Lead Qualification Rules > Declared conditions",
+      "category": "qualification",
+      "version": "1.4",
+      "similarity": 0.658
+    },
+    {
+      "record_id": "kb_objection_int_002_009",
+      "title": "\"I do not want to share my medical details on a recorded call\"",
+      "source_url": "internal://arogya_first_objections.md",
+      "section_path": "Arogya First — Objection Handling > \"I do not want to share my medical details on a recorded call\"",
+      "category": "objection",
+      "version": "1.6",
+      "similarity": 0.598
+    },
+    {
+      "record_id": "kb_objection_int_002_001",
+      "title": "\"It is too expensive\"",
+      "source_url": "internal://arogya_first_objections.md",
+      "section_path": "Arogya First — Objection Handling > \"It is too expensive\"",
+      "category": "objection",
+      "version": "1.6",
+      "similarity": 0.648
+    },
+    {
+      "record_id": "kb_objection_int_002_002",
+      "title": "\"I already have cover from my employer\"",
+      "source_url": "internal://arogya_first_objections.md",
+      "section_path": "Arogya First — Objection Handling > \"I already have cover from my employer\"",
+      "category": "objection",
+      "version": "1.6",
+      "similarity": 0.745
+    }
+  ],
+  "lead": {
+    "lead_reference": "AF-2026-08-02_OBJECTION_C3E3",
+    "created_at": "2026-08-06T13:57:33+00:00",
+    "market": "in_health_en",
+    "brand": "Arogya First",
+    "channel": "inbound_web_call",
+    "outcome": "qualified",
+    "captured": {
+      "members": "1",
+      "age": "41",
+      "city": "Bangalore",
+      "conditions": "None"
+    },
+    "missing_required": [],
+    "unresolved_conflicts": [],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 5,
+    "records_cited": [
+      "kb_qualification_int_004_004",
+      "kb_objection_int_002_009",
+      "kb_objection_int_002_001",
+      "kb_objection_int_002_002"
+    ],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

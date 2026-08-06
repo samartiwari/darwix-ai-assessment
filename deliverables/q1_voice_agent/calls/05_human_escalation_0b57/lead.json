@@ -1,0 +1,23 @@
+{
+  "lead_reference": "AF-2026-08-05_HUMAN_ESCALATION_0B57",
+  "created_at": "2026-08-06T13:58:28+00:00",
+  "market": "in_health_en",
+  "brand": "Arogya First",
+  "channel": "inbound_web_call",
+  "outcome": "escalated",
+  "captured": {
+    "age": "67",
+    "conditions": "cardiac stent fitted in 2019"
+  },
+  "missing_required": [
+    "members",
+    "city"
+  ],
+  "unresolved_conflicts": [],
+  "escalated": true,
+  "escalation_reason": "caller asked for a person",
+  "requires_underwriter_review": true,
+  "turns": 3,
+  "records_cited": [],
+  "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+}

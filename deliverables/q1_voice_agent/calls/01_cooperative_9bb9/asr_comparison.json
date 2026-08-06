@@ -1,0 +1,50 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Yes that is fine, please go ahead.",
+    "transcribed": "Yes that is fine, please go ahead.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 2,
+    "spoken": "I want to cover myself, my wife and our two children.",
+    "transcribed": "I want to cover myself, my wife and our two children.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 3,
+    "spoken": "I am thirty eight, the eldest of us.",
+    "transcribed": "I am 38, the eldest of us.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 4,
+    "spoken": "We live in Pune.",
+    "transcribed": "We live in Pune.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 5,
+    "spoken": "Nobody has any medical conditions, we are all healthy.",
+    "transcribed": "Nobody has any medical conditions, we are all healthy.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 6,
+    "spoken": "My budget is around twenty two thousand a year.",
+    "transcribed": "My budget is around $22,000 a year.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  }
+]

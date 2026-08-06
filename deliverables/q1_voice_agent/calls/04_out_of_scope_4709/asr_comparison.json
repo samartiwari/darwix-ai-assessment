@@ -1,0 +1,34 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Yes, I have a minute.",
+    "transcribed": "Yes, I have a minute.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 2,
+    "spoken": "Before that, what will the weather be like in Mumbai tomorrow?",
+    "transcribed": "Before that, what will the weather be like in Mumbai tomorrow?",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 3,
+    "spoken": "Alright. And what is your company share price?",
+    "transcribed": "Alright. And what is your company share price?",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 4,
+    "spoken": "Fine. I am forty five, just myself, based in Chennai, no conditions.",
+    "transcribed": "Fine. I am 45, just myself, based in Chennai, no conditions.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  }
+]

@@ -1,0 +1,846 @@
+{
+  "in_health_en": [
+    {
+      "scenario": "01_cooperative",
+      "covers": "Cooperative customer through to a created lead",
+      "call_id": "01_cooperative_9bb9",
+      "directory": "deliverables/q1_voice_agent/calls/01_cooperative_9bb9",
+      "outcome": "qualified",
+      "escalated": false,
+      "conflicts": [],
+      "slots": {
+        "members": "4",
+        "age": "38",
+        "city": "Pune",
+        "conditions": "none",
+        "budget": "Rs 18 lakhs"
+      },
+      "turns": [
+        {
+          "index": 1,
+          "caller": "Yes that is fine, please go ahead.",
+          "agent": "Who would you like to cover — just yourself, or family members as well?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": false,
+          "confidence": 0.65,
+          "citations": [
+            "kb_process_int_005_001",
+            "kb_qualification_int_004_002"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1815.61,
+            "asr": 630.22,
+            "retrieval": 10271.77,
+            "llm": 559.97
+          }
+        },
+        {
+          "index": 2,
+          "caller": "I want to cover myself, my wife and our two children.",
+          "agent": "Alright, so there are four members in your family to be covered. And the age of the eldest person to be covered?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.634,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1231.51,
+            "asr": 379.77,
+            "retrieval": 26.25,
+            "llm": 521.31
+          }
+        },
+        {
+          "index": 3,
+          "caller": "I am 38, the eldest of us.",
+          "agent": "Which city are you in?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.535,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1117.51,
+            "asr": 459.79,
+            "retrieval": 27.03,
+            "llm": 550.7
+          }
+        },
+        {
+          "index": 4,
+          "caller": "We live in Pune.",
+          "agent": "Has anyone to be covered been diagnosed with or treated for any medical condition — diabetes, blood pressure, thyroid, anything else?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.539,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1165.14,
+            "asr": 381.35,
+            "retrieval": 23.8,
+            "llm": 625.04
+          }
+        },
+        {
+          "index": 5,
+          "caller": "Nobody has any medical conditions, we are all healthy.",
+          "agent": "That's great to hear. Can you please tell me what kind of budget you have in mind for the premium?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.633,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1186.23,
+            "asr": 390.03,
+            "retrieval": 27.37,
+            "llm": 610.77
+          }
+        },
+        {
+          "index": 6,
+          "caller": "My budget is around $22,000 a year.",
+          "agent": "I've noted that, however, I'd like to clarify that our conversation is in Indian rupees, so I'll assume you meant around Rs 18 lakhs per year. Let me summarize what we've discussed so far.",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": false,
+          "confidence": 0.641,
+          "citations": [
+            "kb_qualification_int_004_005",
+            "kb_objection_int_002_001"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1280.33,
+            "asr": 382.89,
+            "retrieval": 25.65,
+            "llm": 1110.88
+          }
+        }
+      ],
+      "asr": [
+        {
+          "turn": 1,
+          "spoken": "Yes that is fine, please go ahead.",
+          "transcribed": "Yes that is fine, please go ahead.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 2,
+          "spoken": "I want to cover myself, my wife and our two children.",
+          "transcribed": "I want to cover myself, my wife and our two children.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 3,
+          "spoken": "I am thirty eight, the eldest of us.",
+          "transcribed": "I am 38, the eldest of us.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 4,
+          "spoken": "We live in Pune.",
+          "transcribed": "We live in Pune.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 5,
+          "spoken": "Nobody has any medical conditions, we are all healthy.",
+          "transcribed": "Nobody has any medical conditions, we are all healthy.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 6,
+          "spoken": "My budget is around twenty two thousand a year.",
+          "transcribed": "My budget is around $22,000 a year.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        }
+      ],
+      "expect": {
+        "outcome": "qualified",
+        "escalated": false
+      },
+      "lead": {
+        "lead_reference": "AF-2026-08-01_COOPERATIVE_9BB9",
+        "created_at": "2026-08-06T13:57:10+00:00",
+        "market": "in_health_en",
+        "brand": "Arogya First",
+        "channel": "inbound_web_call",
+        "outcome": "qualified",
+        "captured": {
+          "members": "4",
+          "age": "38",
+          "city": "Pune",
+          "conditions": "none",
+          "budget": "Rs 18 lakhs"
+        },
+        "missing_required": [],
+        "unresolved_conflicts": [],
+        "escalated": false,
+        "escalation_reason": null,
+        "requires_underwriter_review": false,
+        "turns": 6,
+        "records_cited": [
+          "kb_process_int_005_001",
+          "kb_qualification_int_004_002",
+          "kb_qualification_int_004_005",
+          "kb_objection_int_002_001"
+        ],
+        "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+      },
+      "wall_seconds": 39.7
+    },
+    {
+      "scenario": "02_objection",
+      "covers": "Objection handled from approved material, grounded",
+      "call_id": "02_objection_c3e3",
+      "directory": "deliverables/q1_voice_agent/calls/02_objection_c3e3",
+      "outcome": "qualified",
+      "escalated": false,
+      "conflicts": [],
+      "slots": {
+        "members": "1",
+        "age": "41",
+        "city": "Bangalore",
+        "conditions": "None"
+      },
+      "turns": [
+        {
+          "index": 1,
+          "caller": "Yes, go ahead.",
+          "agent": "Who would you like to cover — just yourself, or family members as well?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.638,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1073.28,
+            "asr": 392.8,
+            "retrieval": 26.85,
+            "llm": 519.62
+          }
+        },
+        {
+          "index": 2,
+          "caller": "Just myself, I am 41, and I live in Bangalore.",
+          "agent": "Alright, so you're 41 years old and based in Bangalore, and you're looking to cover just yourself. Do you have any pre-existing medical conditions I should know about?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.5,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1524.0,
+            "asr": 386.97,
+            "retrieval": 29.14,
+            "llm": 640.83
+          }
+        },
+        {
+          "index": 3,
+          "caller": "No conditions at all.",
+          "agent": "Alright, so you don't have any pre-existing medical conditions. What's your approximate budget for the premium, per year?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": false,
+          "confidence": 0.658,
+          "citations": [
+            "kb_qualification_int_004_004",
+            "kb_objection_int_002_009"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1125.67,
+            "asr": 387.6,
+            "retrieval": 25.31,
+            "llm": 726.36
+          }
+        },
+        {
+          "index": 4,
+          "caller": "Honestly, this sounds far too expensive for me.",
+          "agent": "I understand your concern about the cost, but let me ask, have you considered a top-up plan, which could be more affordable, especially since you're already in a relatively lower-priced zone like Bangalore, and you can also claim a tax deduction under Section 80D?",
+          "intent": "objection",
+          "answer_source": "context",
+          "abstained": false,
+          "confidence": 0.648,
+          "citations": [
+            "kb_objection_int_002_001"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1290.16,
+            "asr": 394.42,
+            "retrieval": 28.7,
+            "llm": 760.65
+          }
+        },
+        {
+          "index": 5,
+          "caller": "I already have cover through my employer anyway.",
+          "agent": "That's great that you have employer cover, but keep in mind that it usually ends when your employment ends, and the cover amount is often limited to around 5 lakhs. A personal policy like ours can provide continuity and higher coverage, and you might consider a Secure Top-up to raise your total limit.",
+          "intent": "objection",
+          "answer_source": "context",
+          "abstained": false,
+          "confidence": 0.745,
+          "citations": [
+            "kb_objection_int_002_002"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1059.38,
+            "asr": 425.61,
+            "retrieval": 23.59,
+            "llm": 1321.93
+          }
+        }
+      ],
+      "asr": [
+        {
+          "turn": 1,
+          "spoken": "Yes go ahead.",
+          "transcribed": "Yes, go ahead.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 2,
+          "spoken": "Just myself, I am forty one, and I live in Bengaluru.",
+          "transcribed": "Just myself, I am 41, and I live in Bangalore.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 3,
+          "spoken": "No conditions at all.",
+          "transcribed": "No conditions at all.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 4,
+          "spoken": "Honestly, this sounds far too expensive for me.",
+          "transcribed": "Honestly, this sounds far too expensive for me.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 5,
+          "spoken": "I already have cover through my employer anyway.",
+          "transcribed": "I already have cover through my employer anyway.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        }
+      ],
+      "expect": {
+        "grounded_turns_at_least": 2
+      },
+      "lead": {
+        "lead_reference": "AF-2026-08-02_OBJECTION_C3E3",
+        "created_at": "2026-08-06T13:57:33+00:00",
+        "market": "in_health_en",
+        "brand": "Arogya First",
+        "channel": "inbound_web_call",
+        "outcome": "qualified",
+        "captured": {
+          "members": "1",
+          "age": "41",
+          "city": "Bangalore",
+          "conditions": "None"
+        },
+        "missing_required": [],
+        "unresolved_conflicts": [],
+        "escalated": false,
+        "escalation_reason": null,
+        "requires_underwriter_review": false,
+        "turns": 5,
+        "records_cited": [
+          "kb_qualification_int_004_004",
+          "kb_objection_int_002_009",
+          "kb_objection_int_002_001",
+          "kb_objection_int_002_002"
+        ],
+        "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+      },
+      "wall_seconds": 23.6
+    },
+    {
+      "scenario": "03_conflicting_details",
+      "covers": "Incomplete and conflicting details, agent asks rather than guesses",
+      "call_id": "03_conflicting_details_3083",
+      "directory": "deliverables/q1_voice_agent/calls/03_conflicting_details_3083",
+      "outcome": "incomplete",
+      "escalated": false,
+      "conflicts": [
+        "age was given as '30' and now as '51'",
+        "age: 30 does not match implied age from birth year 1975",
+        "age was given as '30' and now as '51'; age: 30 does not match implied age from birth year 1975"
+      ],
+      "slots": {
+        "members": "1",
+        "age": "30"
+      },
+      "turns": [
+        {
+          "index": 1,
+          "caller": "Sure.",
+          "agent": "Who would you like to cover — just yourself, or family members as well?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.605,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 960.42,
+            "asr": 379.85,
+            "retrieval": 25.34,
+            "llm": 539.97
+          }
+        },
+        {
+          "index": 2,
+          "caller": "It is just for me, I am 30 years old.",
+          "agent": "Alright, so it's just you, and you're 30 years old. Where are you based in India?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.579,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1190.6,
+            "asr": 483.01,
+            "retrieval": 24.67,
+            "llm": 595.11
+          }
+        },
+        {
+          "index": 3,
+          "caller": "Actually, I was born in 1975.",
+          "agent": "I've noted that. Which city are you in?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.48,
+          "citations": [],
+          "conflicts": [
+            "age was given as '30' and now as '51'",
+            "age: 30 does not match implied age from birth year 1975"
+          ],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1195.19,
+            "asr": 396.17,
+            "retrieval": 23.77,
+            "llm": 539.18
+          }
+        },
+        {
+          "index": 4,
+          "caller": "I would rather not say which city.",
+          "agent": "That's okay, let's move on. Has anyone to be covered been diagnosed with or treated for any medical condition — diabetes, blood pressure, thyroid, anything else?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.58,
+          "citations": [],
+          "conflicts": [
+            "age was given as '30' and now as '51'; age: 30 does not match implied age from birth year 1975"
+          ],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1259.12,
+            "asr": 415.9,
+            "retrieval": 26.11,
+            "llm": 677.58
+          }
+        }
+      ],
+      "asr": [
+        {
+          "turn": 1,
+          "spoken": "Sure.",
+          "transcribed": "Sure.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 2,
+          "spoken": "It is just for me, I am thirty years old.",
+          "transcribed": "It is just for me, I am 30 years old.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 3,
+          "spoken": "Actually, I was born in nineteen seventy five.",
+          "transcribed": "Actually, I was born in 1975.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 4,
+          "spoken": "I would rather not say which city.",
+          "transcribed": "I would rather not say which city.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        }
+      ],
+      "expect": {
+        "conflicts_at_least": 1,
+        "outcome": "incomplete"
+      },
+      "lead": {
+        "lead_reference": "AF-2026-08-03_CONFLICTING_DETAILS_3083",
+        "created_at": "2026-08-06T13:57:52+00:00",
+        "market": "in_health_en",
+        "brand": "Arogya First",
+        "channel": "inbound_web_call",
+        "outcome": "incomplete",
+        "captured": {
+          "members": "1",
+          "age": "30"
+        },
+        "missing_required": [
+          "city",
+          "conditions"
+        ],
+        "unresolved_conflicts": [
+          "age was given as '30' and now as '51'",
+          "age: 30 does not match implied age from birth year 1975",
+          "age was given as '30' and now as '51'; age: 30 does not match implied age from birth year 1975"
+        ],
+        "escalated": false,
+        "escalation_reason": null,
+        "requires_underwriter_review": false,
+        "turns": 4,
+        "records_cited": [],
+        "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+      },
+      "wall_seconds": 18.4
+    },
+    {
+      "scenario": "04_out_of_scope",
+      "covers": "Out-of-scope question refused instead of answered",
+      "call_id": "04_out_of_scope_4709",
+      "directory": "deliverables/q1_voice_agent/calls/04_out_of_scope_4709",
+      "outcome": "qualified",
+      "escalated": false,
+      "conflicts": [],
+      "slots": {
+        "members": "1",
+        "age": "45",
+        "city": "Chennai",
+        "conditions": "none"
+      },
+      "turns": [
+        {
+          "index": 1,
+          "caller": "Yes, I have a minute.",
+          "agent": "Who would you like to cover — just yourself, or family members as well?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.608,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1112.09,
+            "asr": 387.06,
+            "retrieval": 23.57,
+            "llm": 594.48
+          }
+        },
+        {
+          "index": 2,
+          "caller": "Before that, what will the weather be like in Mumbai tomorrow?",
+          "agent": "That is not something I have information on, and I would rather not guess. I can have a licensed advisor confirm it for you. Would a callback tomorrow morning work?",
+          "intent": "out_of_scope",
+          "answer_source": "insufficient_context",
+          "abstained": true,
+          "confidence": 0.483,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1587.47,
+            "asr": 407.2,
+            "retrieval": 28.57,
+            "llm": 702.78
+          }
+        },
+        {
+          "index": 3,
+          "caller": "Alright. And what is your company share price?",
+          "agent": "That is not something I have information on, and I would rather not guess. I can have a licensed advisor confirm it for you. Would a callback tomorrow morning work?",
+          "intent": "out_of_scope",
+          "answer_source": "insufficient_context",
+          "abstained": true,
+          "confidence": 0.633,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1240.88,
+            "asr": 380.65,
+            "retrieval": 27.14,
+            "llm": 566.3
+          }
+        },
+        {
+          "index": 4,
+          "caller": "Fine. I am 45, just myself, based in Chennai, no conditions.",
+          "agent": "And what would be your approximate budget per year for the premium?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": false,
+          "confidence": 0.652,
+          "citations": [
+            "kb_qualification_int_004_002",
+            "kb_faq_int_001_010"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1470.14,
+            "asr": 442.58,
+            "retrieval": 27.84,
+            "llm": 654.95
+          }
+        }
+      ],
+      "asr": [
+        {
+          "turn": 1,
+          "spoken": "Yes, I have a minute.",
+          "transcribed": "Yes, I have a minute.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 2,
+          "spoken": "Before that, what will the weather be like in Mumbai tomorrow?",
+          "transcribed": "Before that, what will the weather be like in Mumbai tomorrow?",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 3,
+          "spoken": "Alright. And what is your company share price?",
+          "transcribed": "Alright. And what is your company share price?",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 4,
+          "spoken": "Fine. I am forty five, just myself, based in Chennai, no conditions.",
+          "transcribed": "Fine. I am 45, just myself, based in Chennai, no conditions.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        }
+      ],
+      "expect": {
+        "refusals_at_least": 2
+      },
+      "lead": {
+        "lead_reference": "AF-2026-08-04_OUT_OF_SCOPE_4709",
+        "created_at": "2026-08-06T13:58:12+00:00",
+        "market": "in_health_en",
+        "brand": "Arogya First",
+        "channel": "inbound_web_call",
+        "outcome": "qualified",
+        "captured": {
+          "members": "1",
+          "age": "45",
+          "city": "Chennai",
+          "conditions": "none"
+        },
+        "missing_required": [],
+        "unresolved_conflicts": [],
+        "escalated": false,
+        "escalation_reason": null,
+        "requires_underwriter_review": false,
+        "turns": 4,
+        "records_cited": [
+          "kb_qualification_int_004_002",
+          "kb_faq_int_001_010"
+        ],
+        "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+      },
+      "wall_seconds": 20.1
+    },
+    {
+      "scenario": "05_human_escalation",
+      "covers": "Caller asks for a person and is handed over",
+      "call_id": "05_human_escalation_0b57",
+      "directory": "deliverables/q1_voice_agent/calls/05_human_escalation_0b57",
+      "outcome": "escalated",
+      "escalated": true,
+      "conflicts": [],
+      "slots": {
+        "age": "67",
+        "conditions": "cardiac stent fitted in 2019"
+      },
+      "turns": [
+        {
+          "index": 1,
+          "caller": "Yes, all right.",
+          "agent": "Who would you like to cover — just yourself, or family members as well?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.514,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1151.28,
+            "asr": 382.32,
+            "retrieval": 26.01,
+            "llm": 508.73
+          }
+        },
+        {
+          "index": 2,
+          "caller": "My father is 67 and he had a cardiac stent fitted in 2019.",
+          "agent": "I've noted that your father is 67 and had a cardiac stent fitted in 2019. And how many people would you like to cover under the policy?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.61,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1343.54,
+            "asr": 437.6,
+            "retrieval": 28.42,
+            "llm": 650.97
+          }
+        },
+        {
+          "index": 3,
+          "caller": "I would rather just speak to a real person about this please.",
+          "agent": "Of course. I will arrange for a licensed advisor to speak with you. They will call you back at the number you are speaking from.",
+          "intent": "escalation_request",
+          "answer_source": "none_needed",
+          "abstained": true,
+          "confidence": 0.633,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1467.44,
+            "asr": 391.41,
+            "retrieval": 28.06,
+            "llm": 684.64
+          }
+        }
+      ],
+      "asr": [
+        {
+          "turn": 1,
+          "spoken": "Yes alright.",
+          "transcribed": "Yes, all right.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 2,
+          "spoken": "My father is sixty seven and he had a cardiac stent fitted in two thousand nineteen.",
+          "transcribed": "My father is 67 and he had a cardiac stent fitted in 2019.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 3,
+          "spoken": "I would rather just speak to a real person about this please.",
+          "transcribed": "I would rather just speak to a real person about this please.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        }
+      ],
+      "expect": {
+        "escalated": true,
+        "outcome": "escalated"
+      },
+      "lead": {
+        "lead_reference": "AF-2026-08-05_HUMAN_ESCALATION_0B57",
+        "created_at": "2026-08-06T13:58:28+00:00",
+        "market": "in_health_en",
+        "brand": "Arogya First",
+        "channel": "inbound_web_call",
+        "outcome": "escalated",
+        "captured": {
+          "age": "67",
+          "conditions": "cardiac stent fitted in 2019"
+        },
+        "missing_required": [
+          "members",
+          "city"
+        ],
+        "unresolved_conflicts": [],
+        "escalated": true,
+        "escalation_reason": "caller asked for a person",
+        "requires_underwriter_review": true,
+        "turns": 3,
+        "records_cited": [],
+        "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+      },
+      "wall_seconds": 16.0
+    }
+  ]
+}

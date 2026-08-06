@@ -1,29 +1,28 @@
 {
-  "lead_reference": "AF-2026-08-20B4E4B4",
-  "created_at": "2026-08-06T13:07:26+00:00",
+  "lead_reference": "AF-2026-08-01_COOPERATIVE_9BB9",
+  "created_at": "2026-08-06T13:57:10+00:00",
   "market": "in_health_en",
   "brand": "Arogya First",
   "channel": "inbound_web_call",
   "outcome": "qualified",
   "captured": {
-    "members": "1",
-    "age": "41",
-    "city": "Bengaluru",
-    "conditions": "controlled diabetes"
+    "members": "4",
+    "age": "38",
+    "city": "Pune",
+    "conditions": "none",
+    "budget": "Rs 18 lakhs"
   },
   "missing_required": [],
   "unresolved_conflicts": [],
   "escalated": false,
   "escalation_reason": null,
   "requires_underwriter_review": false,
-  "turns": 5,
+  "turns": 6,
   "records_cited": [
     "kb_process_int_005_001",
-    "kb_process_int_005_003",
-    "kb_objection_int_002_007",
-    "kb_process_int_005_002",
-    "kb_faq_int_001_005",
-    "kb_product_int_003_007"
+    "kb_qualification_int_004_002",
+    "kb_qualification_int_004_005",
+    "kb_objection_int_002_001"
   ],
   "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
 }

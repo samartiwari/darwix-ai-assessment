@@ -1,0 +1,122 @@
+[
+  {
+    "trace_id": "6fc0ce03e80c",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:11.459+00:00",
+    "total_ms": 3162.33,
+    "stages": {
+      "caller_synthesis": 1073.28,
+      "asr": 392.8,
+      "retrieval": 26.85,
+      "llm": 519.62,
+      "agent_synthesis": 1149.78
+    },
+    "cumulative": {
+      "caller_synthesis": 1073.28,
+      "asr": 1466.08,
+      "retrieval": 1492.93,
+      "llm": 2012.55,
+      "agent_synthesis": 3162.33
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "7cc210922514",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:14.622+00:00",
+    "total_ms": 4270.5,
+    "stages": {
+      "caller_synthesis": 1524.0,
+      "asr": 386.97,
+      "retrieval": 29.14,
+      "llm": 640.83,
+      "agent_synthesis": 1689.57
+    },
+    "cumulative": {
+      "caller_synthesis": 1524.0,
+      "asr": 1910.97,
+      "retrieval": 1940.1,
+      "llm": 2580.93,
+      "agent_synthesis": 4270.5
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "027bdd718448",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:18.892+00:00",
+    "total_ms": 3931.29,
+    "stages": {
+      "caller_synthesis": 1125.67,
+      "asr": 387.6,
+      "retrieval": 25.31,
+      "llm": 726.36,
+      "agent_synthesis": 1666.35
+    },
+    "cumulative": {
+      "caller_synthesis": 1125.67,
+      "asr": 1513.27,
+      "retrieval": 1538.58,
+      "llm": 2264.94,
+      "agent_synthesis": 3931.29
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "19a359dca0bb",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:22.824+00:00",
+    "total_ms": 4715.42,
+    "stages": {
+      "caller_synthesis": 1290.16,
+      "asr": 394.42,
+      "retrieval": 28.7,
+      "llm": 760.65,
+      "agent_synthesis": 2241.5
+    },
+    "cumulative": {
+      "caller_synthesis": 1290.16,
+      "asr": 1684.58,
+      "retrieval": 1713.27,
+      "llm": 2473.92,
+      "agent_synthesis": 4715.42
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "ce32c4509748",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T13:57:27.540+00:00",
+    "total_ms": 5135.66,
+    "stages": {
+      "caller_synthesis": 1059.38,
+      "asr": 425.61,
+      "retrieval": 23.59,
+      "llm": 1321.93,
+      "agent_synthesis": 2305.15
+    },
+    "cumulative": {
+      "caller_synthesis": 1059.38,
+      "asr": 1484.99,
+      "retrieval": 1508.58,
+      "llm": 2830.51,
+      "agent_synthesis": 5135.66
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  }
+]

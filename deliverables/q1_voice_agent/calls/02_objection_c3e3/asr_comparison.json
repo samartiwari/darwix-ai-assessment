@@ -1,0 +1,42 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Yes go ahead.",
+    "transcribed": "Yes, go ahead.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 2,
+    "spoken": "Just myself, I am forty one, and I live in Bengaluru.",
+    "transcribed": "Just myself, I am 41, and I live in Bangalore.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 3,
+    "spoken": "No conditions at all.",
+    "transcribed": "No conditions at all.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 4,
+    "spoken": "Honestly, this sounds far too expensive for me.",
+    "transcribed": "Honestly, this sounds far too expensive for me.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 5,
+    "spoken": "I already have cover through my employer anyway.",
+    "transcribed": "I already have cover through my employer anyway.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  }
+]

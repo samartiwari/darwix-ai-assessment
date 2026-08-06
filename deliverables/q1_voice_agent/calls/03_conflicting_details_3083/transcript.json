@@ -1,0 +1,155 @@
+{
+  "scenario": "03_conflicting_details",
+  "pack": "in_health_en",
+  "market": "India",
+  "brand": "Arogya First",
+  "state": {
+    "call_id": "03_conflicting_details_3083",
+    "pack_id": "in_health_en",
+    "stage": "qualifying",
+    "slots": {
+      "members": "1",
+      "age": "30"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Sure.",
+        "agent": "Who would you like to cover — just yourself, or family members as well?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [],
+        "retrieval_confidence": 0.605,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 960.42,
+          "asr": 379.85,
+          "retrieval": 25.34,
+          "llm": 539.97
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "It is just for me, I am 30 years old.",
+        "agent": "Alright, so it's just you, and you're 30 years old. Where are you based in India?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.579,
+        "retrieval_abstained": true,
+        "slots_captured": {
+          "members": "1",
+          "age": "30"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1190.6,
+          "asr": 483.01,
+          "retrieval": 24.67,
+          "llm": 595.11
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "Actually, I was born in 1975.",
+        "agent": "I've noted that. Which city are you in?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.48,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [
+          "age was given as '30' and now as '51'",
+          "age: 30 does not match implied age from birth year 1975"
+        ],
+        "latency_ms": {
+          "caller_synthesis": 1195.19,
+          "asr": 396.17,
+          "retrieval": 23.77,
+          "llm": 539.18
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 4,
+        "caller": "I would rather not say which city.",
+        "agent": "That's okay, let's move on. Has anyone to be covered been diagnosed with or treated for any medical condition — diabetes, blood pressure, thyroid, anything else?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.58,
+        "retrieval_abstained": true,
+        "slots_captured": {},
+        "conflicts": [
+          "age was given as '30' and now as '51'; age: 30 does not match implied age from birth year 1975"
+        ],
+        "latency_ms": {
+          "caller_synthesis": 1259.12,
+          "asr": 415.9,
+          "retrieval": 26.11,
+          "llm": 677.58
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [
+      "age was given as '30' and now as '51'",
+      "age: 30 does not match implied age from birth year 1975",
+      "age was given as '30' and now as '51'; age: 30 does not match implied age from birth year 1975"
+    ],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [
+      "members",
+      "city",
+      "conditions"
+    ],
+    "outcome": "incomplete",
+    "started_at": "2026-08-06T13:57:33+00:00"
+  },
+  "citations": [],
+  "lead": {
+    "lead_reference": "AF-2026-08-03_CONFLICTING_DETAILS_3083",
+    "created_at": "2026-08-06T13:57:52+00:00",
+    "market": "in_health_en",
+    "brand": "Arogya First",
+    "channel": "inbound_web_call",
+    "outcome": "incomplete",
+    "captured": {
+      "members": "1",
+      "age": "30"
+    },
+    "missing_required": [
+      "city",
+      "conditions"
+    ],
+    "unresolved_conflicts": [
+      "age was given as '30' and now as '51'",
+      "age: 30 does not match implied age from birth year 1975",
+      "age was given as '30' and now as '51'; age: 30 does not match implied age from birth year 1975"
+    ],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 4,
+    "records_cited": [],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}
