@@ -15,7 +15,7 @@ provider performance.
 
 | Part | Scope | State |
 |---|---|---|
-| Q2 | Knowledge base — ingestion, cleaning, PII handling, hybrid retrieval | not started |
+| Q2 | Knowledge base — ingestion, cleaning, PII handling, hybrid retrieval | 526 records, retrieval tested |
 | Q1 | Health-insurance lead qualification voice agent, grounded in Q2 | not started |
 | Q3 | Philippines (Taglish life insurance) and Indonesia (Bahasa multifinance) agents | not started |
 | Q4 | Live streaming transcription, signal extraction and nudge delivery | not started |
@@ -34,6 +34,8 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
 cp .env.example .env      # then fill in the keys you have
 python scripts/smoke_test.py
+python scripts/build_kb.py            # collect, clean, chunk, embed, index
+python scripts/retrieval_tests.py     # run the retrieval test set
 ```
 
 Only `GROQ_API_KEY` is needed to start; every other provider either has a local

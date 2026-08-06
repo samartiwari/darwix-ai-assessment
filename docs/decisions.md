@@ -49,6 +49,58 @@ confidence.
 The cost is answerable questions occasionally refused when the threshold is set
 too high. Threshold tuning is reported with the retrieval tests.
 
+## The abstention threshold is measured, not chosen
+
+`scripts/calibrate_threshold.py` runs twenty questions the knowledge base can
+answer and fourteen it cannot, and reports where the two distributions sit. They
+overlap: in-scope questions bottom out at 0.649 while out-of-scope questions reach
+0.714, so no single similarity value separates them. The lowest total error is at
+0.68, misclassifying two of thirty-four.
+
+0.64 was chosen instead of 0.68 because the two errors are not equally costly.
+Refusing an answerable question wastes a caller's time and there is no second
+chance to recover it; answering an unanswerable one is caught downstream by
+grounded generation, which sees the retrieved records and is instructed to say
+when they do not contain the answer. At 0.64 the retriever refuses none of the
+twenty answerable questions and rejects ten of the fourteen out-of-scope ones.
+
+The residual four are reported in the retrieval results rather than tuned away.
+"How many employees does Arogya First have" scores 0.714 because it is topically
+close to every record about the brand — a bi-encoder measures topical closeness,
+not whether a record answers a question.
+
+## Cross-encoder reranking is available but off by default
+
+A cross-encoder was measured as a candidate for the abstention decision, since
+rerankers are better calibrated for relevance than bi-encoder similarity. It
+separated off-topic questions decisively, scoring five of six at 0.002 or below.
+
+It also scored "this is too expensive for me" at 0.024 against the record written
+to answer exactly that objection, and "my father is 67, can he get cover" at
+0.001. The model is trained on web-search query and passage pairs, and a
+conversational utterance is not a search query. For a voice agent, where callers
+speak in statements rather than queries, thresholding on it would refuse real
+customers. It remains available through `RETRIEVAL_RERANK` for reordering, and is
+not used for the abstention decision.
+
+## Authoritative records are ranked among themselves
+
+The brand's own documents are 51 records against 475 of background material that
+uses the same vocabulary far more often. Three attempts were needed.
+
+A multiplicative boost after fusion did nothing: asked "what plans do you offer
+for a family", the Family Floater record never entered the candidate pool, and a
+boost cannot lift a record that volume has already excluded. Reserving slots for
+brand records fixed that, but gating them on the abstention threshold excluded the
+same record again, because its text is a list of members and limits that scores
+0.623. Selecting reserved slots by fused rank excluded it a third time, since it
+has no lexical match at all.
+
+Reserved slots are now selected by cosine similarity, with a lower inclusion bar
+than the abstention threshold. Inclusion and abstention are different decisions:
+one governs whether the brand's answer is visible to the model, the other whether
+any answer is given.
+
 ## Hybrid retrieval with rank fusion
 
 BM25 and dense vector search are fused rather than choosing one. Insurance
