@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice agent — web calling interface</title>
+<style>
+  :root {
+    --bg: #12141a; --panel: #1a1d26; --line: #2b303d; --text: #e6e8ee;
+    --muted: #99a0b0; --accent: #6ea8fe; --ok: #63c98b; --warn: #e8b84b;
+    --bad: #e8736b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex;
+    align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  h1 { font-size: 17px; margin: 0; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 13px; }
+  main { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr);
+    gap: 18px; padding: 18px 22px; align-items: start; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; }
+  .panel h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+  .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    margin-bottom: 14px; }
+  select, button, input[type=text] { font: inherit; border-radius: 8px;
+    border: 1px solid var(--line); background: #22262f; color: var(--text);
+    padding: 9px 13px; }
+  input[type=text] { flex: 1; min-width: 200px; }
+  button { cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.primary { background: var(--accent); color: #0d1017; border-color: var(--accent);
+    font-weight: 600; }
+  button.talk { background: #2f3a4d; border-color: #3d4a61; min-width: 190px; }
+  button.talk.recording { background: var(--bad); border-color: var(--bad); color: #170f0e; }
+  #log { display: flex; flex-direction: column; gap: 12px; max-height: 62vh;
+    overflow-y: auto; }
+  .msg { padding: 10px 13px; border-radius: 9px; max-width: 88%; white-space: pre-wrap;
+    word-break: break-word; }
+  .msg.caller { background: #232834; align-self: flex-end; }
+  .msg.agent { background: #1f2a38; border-left: 3px solid var(--accent); }
+  .msg.system { background: transparent; color: var(--muted); font-size: 13px;
+    align-self: center; text-align: center; max-width: 100%; }
+  .who { font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted); margin-bottom: 4px; }
+  .meta { margin-top: 7px; font-size: 12px; color: var(--muted);
+    display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { background: #2a3040; border-radius: 20px; padding: 2px 9px; }
+  .tag.ok { color: var(--ok); } .tag.warn { color: var(--warn); }
+  .tag.bad { color: var(--bad); }
+  .cite { margin-top: 6px; font-size: 12px; color: var(--muted);
+    border-top: 1px dashed var(--line); padding-top: 6px; }
+  .cite a { color: var(--accent); text-decoration: none; }
+  .cite code { color: #b9c4d6; }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px;
+    font-size: 13px; }
+  dt { color: var(--muted); } dd { margin: 0; }
+  .empty { color: var(--muted); font-size: 13px; }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 10px; }
+  pre { background: #14171f; border: 1px solid var(--line); border-radius: 8px;
+    padding: 11px; overflow-x: auto; font-size: 12px; margin: 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="brand">Voice agent</h1>
+  <span class="sub" id="subtitle">web calling interface</span>
+  <span class="sub" id="callid"></span>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Call</h2>
+    <div class="controls">
+      <select id="pack"></select>
+      <input type="text" id="scenario" placeholder="scenario label (optional)">
+      <button class="primary" id="start">Start call</button>
+      <button class="talk" id="talk" disabled>Hold to talk</button>
+      <button id="end" disabled>End call</button>
+    </div>
+    <div class="controls">
+      <input type="text" id="typed" placeholder="or type what the caller says and press Enter" disabled>
+      <button id="send" disabled>Send</button>
+    </div>
+    <div id="log"><p class="empty">Start a call to begin. Hold the talk button while speaking, then release.</p></div>
+    <p class="hint">Half-duplex: one speaker at a time, no interruption. Audio is
+      captured as 16&nbsp;kHz mono WAV in the browser, so no codec conversion is
+      needed server-side.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Qualification state</h2>
+    <dl id="state"><dt>status</dt><dd>no active call</dd></dl>
+    <h2 style="margin-top:18px">Outcome</h2>
+    <div id="outcome" class="empty">Call has not ended.</div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let callId = null, audioCtx = null, stream = null, node = null, source = null;
+let recording = false, buffers = [], sampleRate = 48000;
+const TARGET_RATE = 16000;
+
+/* ---------- microphone capture -------------------------------------------
+   Raw PCM is captured and encoded as WAV in the page. MediaRecorder would be
+   fewer lines but emits compressed audio whose container varies by browser;
+   WAV is understood by both the hosted and the local transcription path
+   without any server-side conversion. --------------------------------------*/
+async function ensureMic() {
+  if (audioCtx) return;
+  stream = await navigator.mediaDevices.getUserMedia({
+    audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true }
+  });
+  audioCtx = new AudioContext();
+  sampleRate = audioCtx.sampleRate;
+  source = audioCtx.createMediaStreamSource(stream);
+  node = audioCtx.createScriptProcessor(4096, 1, 1);
+  node.onaudioprocess = (e) => {
+    if (recording) buffers.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+  };
+  source.connect(node);
+  node.connect(audioCtx.destination);
+}
+
+function downsample(input, from, to) {
+  if (to >= from) return input;
+  const ratio = from / to, out = new Float32Array(Math.floor(input.length / ratio));
+  for (let i = 0; i < out.length; i++) {
+    const start = Math.floor(i * ratio), end = Math.min(Math.floor((i + 1) * ratio), input.length);
+    let sum = 0;
+    for (let j = start; j < end; j++) sum += input[j];
+    out[i] = sum / Math.max(end - start, 1);
+  }
+  return out;
+}
+
+function encodeWav(samples, rate) {
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const view = new DataView(buffer);
+  const str = (off, s) => { for (let i = 0; i < s.length; i++) view.setUint8(off + i, s.charCodeAt(i)); };
+  str(0, 'RIFF'); view.setUint32(4, 36 + samples.length * 2, true); str(8, 'WAVE');
+  str(12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true); view.setUint32(24, rate, true);
+  view.setUint32(28, rate * 2, true); view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true); str(36, 'data');
+  view.setUint32(40, samples.length * 2, true);
+  let off = 44;
+  for (const s of samples) {
+    const clamped = Math.max(-1, Math.min(1, s));
+    view.setInt16(off, clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff, true);
+    off += 2;
+  }
+  return new Blob([view], { type: 'audio/wav' });
+}
+
+function collectWav() {
+  const total = buffers.reduce((n, b) => n + b.length, 0);
+  const merged = new Float32Array(total);
+  let at = 0;
+  for (const b of buffers) { merged.set(b, at); at += b.length; }
+  buffers = [];
+  return encodeWav(downsample(merged, sampleRate, TARGET_RATE), TARGET_RATE);
+}
+
+/* ---------- rendering ---------------------------------------------------- */
+function line(who, text, cls) {
+  const el = document.createElement('div');
+  el.className = 'msg ' + cls;
+  if (cls !== 'system') el.innerHTML = `<div class="who">${who}</div>`;
+  el.appendChild(document.createTextNode(text));
+  $('log').appendChild(el);
+  $('log').scrollTop = $('log').scrollHeight;
+  return el;
+}
+
+function annotate(el, data) {
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  const tag = (t, c = '') => `<span class="tag ${c}">${t}</span>`;
+  let html = tag(`intent ${data.intent}`);
+  html += data.answer_source === 'context'
+    ? tag('grounded in knowledge base', 'ok')
+    : data.answer_source === 'insufficient_context'
+      ? tag('no information — refused', 'warn')
+      : tag('no factual claim');
+  if (data.retrieval_abstained) html += tag('retrieval abstained', 'warn');
+  else html += tag(`confidence ${data.retrieval_confidence}`);
+  if (data.conflicts && data.conflicts.length) html += tag('contradiction', 'bad');
+  if (data.escalated) html += tag('escalated to a person', 'warn');
+  const total = Object.values(data.latency_ms || {}).reduce((a, b) => a + b, 0);
+  if (total) html += tag(`${Math.round(total)} ms`);
+  meta.innerHTML = html;
+  el.appendChild(meta);
+
+  if (data.citations && data.citations.length) {
+    const cite = document.createElement('div');
+    cite.className = 'cite';
+    cite.innerHTML = 'Cited: ' + data.citations.map(c =>
+      `<code>${c.record_id}</code> ${c.source_url.startsWith('http')
+        ? `<a href="${c.source_url}" target="_blank" rel="noopener">source</a>`
+        : `<span>${c.source_url}</span>`}`).join(' · ');
+    el.appendChild(cite);
+  }
+}
+
+function renderState(data) {
+  const slots = data.slots || {};
+  const rows = [
+    ['stage', data.stage || '—'],
+    ['captured', Object.keys(slots).length
+      ? Object.entries(slots).map(([k, v]) => `${k}: ${v}`).join('<br>') : 'nothing yet'],
+    ['still needed', (data.missing || []).join(', ') || 'none'],
+  ];
+  if (data.conflicts && data.conflicts.length) rows.push(['contradictions', data.conflicts.join('<br>')]);
+  if (data.escalated) rows.push(['escalated', 'yes']);
+  $('state').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+}
+
+function play(url) {
+  const audio = new Audio(url);
+  audio.play().catch(() => {});   // autoplay may be blocked until first gesture
+}
+
+/* ---------- call flow ---------------------------------------------------- */
+async function loadPacks() {
+  const { packs } = await (await fetch('/api/packs')).json();
+  $('pack').innerHTML = packs.map(p =>
+    `<option value="${p.id}">${p.market} — ${p.sector} (${p.language})</option>`).join('');
+}
+
+$('start').onclick = async () => {
+  const body = new FormData();
+  body.append('pack_id', $('pack').value);
+  body.append('scenario', $('scenario').value);
+  const data = await (await fetch('/api/call/start', { method: 'POST', body })).json();
+  callId = data.call_id;
+  $('log').innerHTML = '';
+  $('brand').textContent = data.brand;
+  $('subtitle').textContent = `${data.agent} · ${data.language}`;
+  $('callid').textContent = `call ${callId}`;
+  annotate(line(data.agent, data.greeting, 'agent'), { intent: 'greeting', answer_source: 'none_needed' });
+  play(data.audio_url);
+  $('talk').disabled = false; $('end').disabled = false;
+  $('typed').disabled = false; $('send').disabled = false;
+  renderState({ stage: 'consent', slots: {}, missing: data.required_slots });
+  $('outcome').textContent = 'Call in progress.';
+  try { await ensureMic(); } catch (e) {
+    line('', 'Microphone unavailable — use the text box to drive the call.', 'system');
+    $('talk').disabled = true;
+  }
+};
+
+async function sendTurn(body) {
+  const pending = line('you', '…', 'system');
+  const res = await fetch(`/api/call/${callId}/turn`, { method: 'POST', body });
+  const data = await res.json();
+  pending.remove();
+  if (data.error) { line('', `${data.error}: ${data.detail || ''}`, 'system'); return; }
+  line('caller', data.caller, 'caller');
+  annotate(line($('subtitle').textContent.split(' ·')[0], data.reply, 'agent'), data);
+  renderState(data);
+  play(data.audio_url);
+}
+
+const press = async () => {
+  if (!callId || recording) return;
+  await ensureMic();
+  buffers = []; recording = true;
+  $('talk').classList.add('recording'); $('talk').textContent = 'Recording — release to send';
+};
+const release = async () => {
+  if (!recording) return;
+  recording = false;
+  $('talk').classList.remove('recording'); $('talk').textContent = 'Hold to talk';
+  const blob = collectWav();
+  if (blob.size < 2000) { line('', 'That was too short to transcribe.', 'system'); return; }
+  const body = new FormData();
+  body.append('audio', blob, 'turn.wav');
+  await sendTurn(body);
+};
+$('talk').addEventListener('mousedown', press);
+$('talk').addEventListener('mouseup', release);
+$('talk').addEventListener('mouseleave', release);
+$('talk').addEventListener('touchstart', (e) => { e.preventDefault(); press(); });
+$('talk').addEventListener('touchend', (e) => { e.preventDefault(); release(); });
+
+async function sendTyped() {
+  const text = $('typed').value.trim();
+  if (!text || !callId) return;
+  $('typed').value = '';
+  const body = new FormData();
+  body.append('text', text);
+  await sendTurn(body);
+}
+$('send').onclick = sendTyped;
+$('typed').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendTyped(); });
+
+$('end').onclick = async () => {
+  if (!callId) return;
+  const body = new FormData();
+  body.append('scenario', $('scenario').value);
+  const data = await (await fetch(`/api/call/${callId}/end`, { method: 'POST', body })).json();
+  line($('subtitle').textContent.split(' ·')[0], data.closing, 'agent');
+  play(data.audio_url);
+  $('outcome').innerHTML =
+    `<p><strong>Outcome:</strong> ${data.outcome}</p>` +
+    `<p class="hint">Artifacts written to <code>${data.artifacts}</code></p>` +
+    `<pre>${JSON.stringify(data.lead, null, 2)}</pre>`;
+  $('talk').disabled = true; $('end').disabled = true;
+  $('typed').disabled = true; $('send').disabled = true;
+  callId = null;
+};
+
+loadPacks();
+</script>
+</body>
+</html>

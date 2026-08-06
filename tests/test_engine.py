@@ -15,6 +15,7 @@ from apps.voice.engine import (
     _merge_slots,
     _next_stage,
     build_system_prompt,
+    unsupported_figures,
 )
 
 
@@ -144,3 +145,56 @@ class TestSystemPrompt:
         prompt = build_system_prompt(pack, state).lower()
         for leaked in ("36 month", "15 working days", "8,700", "rs 9,400"):
             assert leaked not in prompt
+
+
+class TestFigureGrounding:
+    """A mechanical check on policy figures, independent of the model's self-report.
+
+    The model reported a turn stating "a 36 month pre-existing disease waiting
+    period" as making no factual claim, so its own report cannot be the only
+    guard. A wrong waiting period is exactly what a caller would act on.
+    """
+
+    CONTEXT = (
+        "Pre-existing diseases are covered after 36 months of continuous cover. "
+        "Senior Care carries a 20% co-payment. Reimbursement within 15 working "
+        "days. Sum insured Rs 1,000,000 (10 lakh)."
+    )
+
+    def test_accepts_figures_present_in_context(self):
+        for reply in (
+            "The waiting period is 36 months of continuous cover.",
+            "Senior Care carries a 20% co-payment.",
+            "Cover of 10 lakh is available.",
+            "Settled within 15 working days.",
+        ):
+            assert unsupported_figures(reply, self.CONTEXT, []) == []
+
+    def test_flags_an_invented_waiting_period(self):
+        assert unsupported_figures("The waiting period is 24 months.", self.CONTEXT, []) == [
+            "24 months"
+        ]
+
+    def test_flags_an_invented_percentage(self):
+        """Regression: a word boundary after '%' never matches, so 35% went unchecked."""
+        assert unsupported_figures("There is a 35% co-payment.", self.CONTEXT, []) == ["35%"]
+        assert unsupported_figures("There is a 40 percent co-payment.", self.CONTEXT, []) == [
+            "40 percent"
+        ]
+
+    def test_flags_an_invented_premium(self):
+        assert unsupported_figures("That would be Rs 7,250 a year.", self.CONTEXT, []) == [
+            "Rs 7,250"
+        ]
+
+    def test_flags_an_invented_sum_insured(self):
+        assert unsupported_figures("Cover of 75 lakh is available.", self.CONTEXT, []) == [
+            "75 lakh"
+        ]
+
+    def test_restating_the_callers_own_number_is_not_a_claim(self):
+        """The agent echoing an age the caller gave is not a policy assertion."""
+        assert unsupported_figures("So you are 41 years old.", self.CONTEXT, ["41"]) == []
+
+    def test_a_reply_with_no_figures_passes(self):
+        assert unsupported_figures("Which city are you in?", self.CONTEXT, []) == []

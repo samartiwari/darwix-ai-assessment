@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import threading
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -139,12 +140,30 @@ def row_to_record(row: sqlite3.Row) -> Record:
 
 
 class KnowledgeBase:
-    """Read and write access to the records and their indexes."""
+    """Read and write access to the records and their indexes.
+
+    Connections are held per thread. SQLite refuses to use a connection from a
+    thread other than the one that opened it, and a web server runs synchronous
+    handlers on a threadpool, so a single shared connection fails on the second
+    request from a different worker. Single-threaded scripts never reveal this.
+
+    Serving is read-only, so per-thread connections need no coordination. The
+    build path writes from one thread.
+    """
 
     def __init__(self, path: Path | None = None) -> None:
         self.path = path or db_path()
-        self.conn = connect(self.path)
+        self._local = threading.local()
         self._faiss = None
+        self._faiss_lock = threading.Lock()
+
+    @property
+    def conn(self) -> sqlite3.Connection:
+        existing = getattr(self._local, "conn", None)
+        if existing is None:
+            existing = connect(self.path)
+            self._local.conn = existing
+        return existing
 
     # --- writing ---------------------------------------------------------
 
@@ -203,15 +222,22 @@ class KnowledgeBase:
 
     @property
     def faiss_index(self):
-        if self._faiss is None:
-            import faiss
+        """The vector index, loaded once and shared.
 
-            path = faiss_path()
-            if not path.exists():
-                raise FileNotFoundError(
-                    f"no vector index at {path} — run scripts/build_kb.py first"
-                )
-            self._faiss = faiss.read_index(str(path))
+        FAISS searches are read-only and thread-safe; only the load is guarded,
+        so two concurrent first requests cannot both read the file.
+        """
+        if self._faiss is None:
+            with self._faiss_lock:
+                if self._faiss is None:
+                    import faiss
+
+                    path = faiss_path()
+                    if not path.exists():
+                        raise FileNotFoundError(
+                            f"no vector index at {path} — run scripts/build_kb.py first"
+                        )
+                    self._faiss = faiss.read_index(str(path))
         return self._faiss
 
     def count(self) -> int:
@@ -247,7 +273,11 @@ class KnowledgeBase:
         return {r["category"]: r["n"] for r in rows}
 
     def close(self) -> None:
-        self.conn.close()
+        """Close this thread's connection. Other threads keep their own."""
+        existing = getattr(self._local, "conn", None)
+        if existing is not None:
+            existing.close()
+            self._local.conn = None
 
 
 def load_metadata() -> dict:

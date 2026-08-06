@@ -15,6 +15,7 @@ own fallback wording rather than letting the model improvise a refusal.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -97,6 +98,7 @@ class Turn:
     conflicts: list[str] = field(default_factory=list)
     latency_ms: dict = field(default_factory=dict)
     provider: str = ""
+    ungrounded_figures: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -279,6 +281,48 @@ def _merge_slots(state: CallState, extracted: dict) -> tuple[dict, list[str]]:
     return captured, conflicts
 
 
+# Numbers carrying a policy unit: waiting periods, co-payment shares, sums
+# insured, premiums, settlement windows. These are the figures a caller acts on.
+# The trailing guard is a negative lookahead rather than \b. A word boundary after
+# "%" never matches, because a percent sign followed by a space has non-word
+# characters on both sides, so "35%" was silently never checked.
+POLICY_FIGURE = re.compile(
+    r"\b(\d[\d,.]*)\s*(months?|days?|years?|%|percent|lakhs?|crores?)(?![a-z])",
+    re.I,
+)
+CURRENCY_FIGURE = re.compile(r"\b(?:rs\.?|inr|rupees)\s*(\d[\d,.]*)", re.I)
+
+
+def unsupported_figures(reply: str, context: str, known: list[str]) -> list[str]:
+    """Policy figures in the reply that do not appear in the retrieved context.
+
+    The model self-reports whether it used context, and that report is not
+    reliable: a turn stating "a 36 month pre-existing disease waiting period" was
+    labelled as making no factual claim. This checks mechanically instead, because
+    a wrong waiting period is exactly the kind of error a caller would act on.
+
+    Figures the caller supplied — their age, their budget — are excluded, since
+    the agent restating them is not a claim about policy.
+    """
+    haystack = re.sub(r"[,\s]+", " ", context.lower())
+    caller_numbers = {
+        re.sub(r"[^\d.]", "", value) for value in known if re.search(r"\d", value or "")
+    }
+
+    unsupported: list[str] = []
+    for match in list(POLICY_FIGURE.finditer(reply)) + list(CURRENCY_FIGURE.finditer(reply)):
+        number = match.group(1)
+        bare = number.replace(",", "").rstrip(".")
+        if bare in caller_numbers:
+            continue
+        # Accept either the digits or a grouped form of them appearing in context.
+        variants = {bare, number.lower(), f"{int(bare):,}" if bare.isdigit() else bare}
+        if not any(v.lower().replace(",", " ") in haystack or v.lower() in haystack
+                   for v in variants):
+            unsupported.append(match.group(0).strip())
+    return unsupported
+
+
 def _next_stage(state: CallState, pack: Pack, intent: str) -> str:
     if intent == "escalation_request":
         return "closed"
@@ -352,6 +396,12 @@ class Engine:
             asked_something_factual and retrieval.abstained
         )
 
+        # The model's own report is not sufficient. Any policy figure it states
+        # must appear in the records that were supplied this turn.
+        stray = unsupported_figures(spoken, context, list(state.slots.values()))
+        if stray:
+            unsupported = True
+
         # Approved wording replaces model output where improvising is the failure
         # mode: an unanswerable question, and a handover.
         if intent == "escalation_request":
@@ -362,6 +412,8 @@ class Engine:
         elif unsupported or not spoken:
             spoken = pack.text("fallback_no_information")
             source = "insufficient_context"
+            if stray:
+                trace.note(ungrounded_figures=stray)
 
         grounded = source != "insufficient_context"
 
@@ -395,6 +447,7 @@ class Engine:
             conflicts=conflicts,
             latency_ms=trace.stage_durations(),
             provider=reply.provider,
+            ungrounded_figures=stray,
         )
         state.turns.append(turn)
         state.stage = _next_stage(state, pack, intent)

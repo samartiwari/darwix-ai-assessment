@@ -9,6 +9,7 @@
 # Server and configuration
 fastapi>=0.115
 uvicorn[standard]>=0.32
+python-multipart>=0.0.9   # FastAPI form and file uploads
 python-dotenv>=1.0
 pyyaml>=6.0
 pydantic>=2.9
