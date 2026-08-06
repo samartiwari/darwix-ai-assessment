@@ -24,8 +24,18 @@ def _load(model_name: str, device: str):
 
 
 def model_name(multilingual: bool = False) -> str:
+    """The embedding model for a corpus.
+
+    The Philippine and Indonesian corpus uses a multilingual model rather than the
+    English one, and it is a separate index rather than a shared one. Similarity
+    scales differ between the two models, so a single abstention threshold cannot
+    serve both; each corpus is calibrated on its own queries.
+    """
     if multilingual:
-        return os.getenv("EMBED_MODEL_MULTILINGUAL", "BAAI/bge-m3")
+        return os.getenv(
+            "EMBED_MODEL_MULTILINGUAL",
+            "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        )
     return os.getenv("EMBED_MODEL", "BAAI/bge-small-en-v1.5")
 
 

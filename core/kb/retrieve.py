@@ -67,14 +67,21 @@ RESERVED_AUTHORITATIVE_SLOTS = 4
 # corpus grows by orders of magnitude.
 DEEP_CANDIDATES = 5000
 
-# Inclusion bar for a reserved slot, deliberately below the abstention threshold.
-# The two are different decisions: a reserved slot decides whether the brand's own
-# answer is visible to the model, while abstention is decided by the best hit
-# overall. Gating inclusion at the abstention threshold defeated the mechanism —
-# the Family Floater record scores 0.623 because its text is a list of members and
-# limits and never says "health insurance plan", so it was excluded from the very
-# slot that existed to surface it.
-AUTHORITATIVE_MIN_SIMILARITY = 0.58
+# Inclusion bar for a reserved slot, set below the corpus's own abstention
+# threshold rather than at an absolute value. The two are different decisions: a
+# reserved slot decides whether the brand's own answer is visible to the model,
+# while abstention is decided by the best hit overall. Gating inclusion at the
+# abstention threshold defeated the mechanism — the Family Floater record scores
+# 0.623 because its text is a list of members and limits and never says "health
+# insurance plan", so it was excluded from the very slot that existed to surface it.
+#
+# The margin is relative because an absolute value silently became the effective
+# threshold for another corpus. In the Philippine and Indonesian index every record
+# is an internal document, so the background pool is empty and every record is
+# ranked as authoritative; a hardcoded 0.58 calibrated against English embeddings
+# then discarded most of a corpus whose model scores on a different scale, and
+# retrieval returned nothing at all for thirteen of thirty queries.
+AUTHORITATIVE_MARGIN = 0.06
 
 
 @dataclass
@@ -180,12 +187,21 @@ def _fts_query(text: str) -> str:
 
 
 class Retriever:
-    def __init__(self, kb: KnowledgeBase | None = None) -> None:
+    def __init__(
+        self,
+        kb: KnowledgeBase | None = None,
+        multilingual: bool = False,
+        min_score: float | None = None,
+    ) -> None:
         self.kb = kb or KnowledgeBase()
+        self.multilingual = multilingual
+        # Each corpus carries its own threshold. Similarity scales differ between
+        # embedding models, so one number cannot serve both.
+        self.min_score = min_score
         self._order = self.kb.record_ids_in_vector_order()
 
     def _dense(self, query: str, limit: int) -> list[tuple[str, float]]:
-        vector = encode_query(query).reshape(1, -1)
+        vector = encode_query(query, multilingual=self.multilingual).reshape(1, -1)
         scores, positions = self.kb.faiss_index.search(vector, min(limit, len(self._order)))
         out: list[tuple[str, float]] = []
         for score, position in zip(scores[0], positions[0], strict=False):
@@ -217,7 +233,12 @@ class Retriever:
         min_score: float | None = None,
     ) -> RetrievalResult:
         top_k = top_k or _top_k()
-        threshold = _min_score() if min_score is None else min_score
+        if min_score is not None:
+            threshold = min_score
+        elif self.min_score is not None:
+            threshold = self.min_score
+        else:
+            threshold = _min_score()
 
         if not query.strip():
             return RetrievalResult(
@@ -300,8 +321,9 @@ class Retriever:
         # a general question.
         authoritative_hits = to_hits(authoritative, AUTHORITY_BOOST)
         authoritative_hits.sort(key=lambda h: -h.similarity)
+        authoritative_min = max(0.0, threshold - AUTHORITATIVE_MARGIN)
         reserved = [
-            h for h in authoritative_hits if h.similarity >= AUTHORITATIVE_MIN_SIMILARITY
+            h for h in authoritative_hits if h.similarity >= authoritative_min
         ][:RESERVED_AUTHORITATIVE_SLOTS]
 
         chosen_ids = {h.record.record_id for h in reserved}

@@ -40,6 +40,7 @@ class Document:
     tables: list[list[list[str]]] = field(default_factory=list)
     word_count: int = 0
     lines_dropped: int = 0
+    lang: str = "en"
     pii: bool = False
     pii_types: list[str] = field(default_factory=list)
     term_changes: int = 0
@@ -104,7 +105,19 @@ def collect_web(fetcher: Fetcher) -> tuple[list[Document], list[Excluded]]:
     return documents, excluded
 
 
-def collect_internal() -> list[Document]:
+# Which authored documents belong to which corpus. The markets are kept apart
+# because their embedding models and calibrated thresholds differ, and mixing
+# Tagalog and Indonesian records into an English index would make one similarity
+# threshold answer for three scales.
+CORPUS_PREFIXES = {
+    "en": ("arogya_first_", "sample_leads"),
+    "multilingual": ("ph_", "id_"),
+}
+
+CORPUS_LANGUAGE = {"ph_": "fil", "id_": "id"}
+
+
+def collect_internal(corpus: str = "en") -> list[Document]:
     """Load the authored internal documents for the fictional brand.
 
     These carry what public pages cannot: the brand's own product terms,
@@ -123,10 +136,17 @@ def collect_internal() -> list[Document]:
         "arogya_first_objections": "objection",
         "arogya_first_sales_script": "process",
         "sample_leads": "internal_records",
+        "ph_kalinga_life_products": "product",
+        "ph_kalinga_objections": "objection",
+        "id_amanah_finance_products": "product",
+        "id_amanah_objections": "objection",
     }
+    prefixes = CORPUS_PREFIXES.get(corpus, CORPUS_PREFIXES["en"])
 
     for index, path in enumerate(sorted(INTERNAL_DIR.iterdir()), start=1):
         if path.suffix not in (".md", ".csv"):
+            continue
+        if not path.stem.startswith(prefixes):
             continue
         raw = path.read_text()
         if path.suffix == ".csv":
@@ -140,6 +160,10 @@ def collect_internal() -> list[Document]:
         if source_type == "internal_data":
             title = path.stem.replace("_", " ").title()
 
+        language = next(
+            (lang for prefix, lang in CORPUS_LANGUAGE.items() if path.stem.startswith(prefix)),
+            "en",
+        )
         documents.append(
             Document(
                 doc_id=_doc_id("int", index),
@@ -148,6 +172,7 @@ def collect_internal() -> list[Document]:
                 text=text,
                 category_hint=category_by_stem.get(path.stem, ""),
                 source_type=source_type,
+                lang=language,
                 fetched_at=datetime.now(UTC).isoformat(timespec="seconds"),
             )
         )
@@ -184,10 +209,20 @@ def protect_and_normalize(
     return kept, excluded, term_totals
 
 
-def collect(use_cache: bool = True) -> dict:
-    fetcher = Fetcher(use_cache=use_cache)
-    web, excluded = collect_web(fetcher)
-    documents = web + collect_internal()
+def collect(use_cache: bool = True, corpus: str = "en") -> dict:
+    """Collect one corpus.
+
+    The English corpus draws on the public sources and the India documents. The
+    multilingual corpus is the Philippine and Indonesian documents only: there are
+    no public Taglish or Bahasa sources in the source list, and the market content
+    is authored.
+    """
+    excluded: list[Excluded] = []
+    web: list[Document] = []
+    if corpus == "en":
+        fetcher = Fetcher(use_cache=use_cache)
+        web, excluded = collect_web(fetcher)
+    documents = web + collect_internal(corpus)
 
     # Site-wide headers and footers are only identifiable across documents.
     web_texts = {d.doc_id: d.text for d in documents if d.source_type == "web_page"}
@@ -225,13 +260,14 @@ def collect(use_cache: bool = True) -> dict:
     }
 
 
-def write_outputs(state: dict) -> None:
+def write_outputs(state: dict, corpus: str = "en") -> None:
     documents: list[Document] = state["documents"]
     excluded: list[Excluded] = state["excluded"]
 
     INTERIM.mkdir(parents=True, exist_ok=True)
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    (INTERIM / "documents.json").write_text(
+    suffix = "" if corpus == "en" else f"_{corpus}"
+    (INTERIM / f"documents{suffix}.json").write_text(
         json.dumps([asdict(d) for d in documents], indent=2, ensure_ascii=False)
     )
 
@@ -360,12 +396,13 @@ def write_outputs(state: dict) -> None:
         "names like \"Optima Secure\" as people, so recall is traded for precision.",
         "",
     ]
-    (REPORT_DIR / "ingestion_report.md").write_text("\n".join(lines))
+    report_name = "ingestion_report.md" if corpus == "en" else f"ingestion_report_{corpus}.md"
+    (REPORT_DIR / report_name).write_text("\n".join(lines))
 
 
-def main(use_cache: bool = True) -> None:
-    state = collect(use_cache=use_cache)
-    write_outputs(state)
+def main(use_cache: bool = True, corpus: str = "en") -> None:
+    state = collect(use_cache=use_cache, corpus=corpus)
+    write_outputs(state, corpus=corpus)
 
     documents = state["documents"]
     print(f"collected {len(documents)} documents, {len(state['excluded'])} excluded")
@@ -378,4 +415,4 @@ def main(use_cache: bool = True) -> None:
         print("\ncontradictions:")
         for c in state["contradictions"]:
             print(f"  {c.describe()}")
-    print("\nreport: deliverables/q2_kb/ingestion_report.md")
+    print(f"\nreport: deliverables/q2_kb/{report_name}")

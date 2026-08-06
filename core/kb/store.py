@@ -121,8 +121,8 @@ def db_path() -> Path:
     return ROOT / os.getenv("KB_PATH", "kb.sqlite")
 
 
-def faiss_path() -> Path:
-    return db_path().with_suffix(".faiss")
+def faiss_path(path: Path | None = None) -> Path:
+    return (path or db_path()).with_suffix(".faiss")
 
 
 def connect(path: Path | None = None) -> sqlite3.Connection:
@@ -207,7 +207,7 @@ class KnowledgeBase:
         # Inner product on normalized vectors is cosine similarity.
         index = faiss.IndexFlatIP(vectors.shape[1])
         index.add(vectors)
-        faiss.write_index(index, str(faiss_path()))
+        faiss.write_index(index, str(faiss_path(self.path)))
         self._faiss = index
 
     def set_build_info(self, info: dict[str, str]) -> None:
@@ -232,7 +232,7 @@ class KnowledgeBase:
                 if self._faiss is None:
                     import faiss
 
-                    path = faiss_path()
+                    path = faiss_path(self.path)
                     if not path.exists():
                         raise FileNotFoundError(
                             f"no vector index at {path} — run scripts/build_kb.py first"

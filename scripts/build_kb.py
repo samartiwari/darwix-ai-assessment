@@ -24,17 +24,25 @@ def main() -> int:
         action="store_true",
         help="re-fetch sources instead of using data/raw/",
     )
+    parser.add_argument(
+        "--corpus",
+        choices=("en", "multilingual"),
+        default="en",
+        help="en: public sources and the India documents. multilingual: the "
+        "Philippine and Indonesian market documents, embedded with a "
+        "multilingual model and written to kb_multilingual.sqlite",
+    )
     args = parser.parse_args()
 
     if args.stage in ("collect", "all"):
         from core.kb import ingest
 
-        ingest.main(use_cache=not args.no_cache)
+        ingest.main(use_cache=not args.no_cache, corpus=args.corpus)
 
     if args.stage in ("build", "all"):
         from core.kb import build
 
-        build.main()
+        build.main(corpus=args.corpus)
 
     return 0
 

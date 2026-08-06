@@ -124,11 +124,13 @@ def _extract_effective_date(text: str) -> str | None:
     return match.group(1) if match else None
 
 
-def load_documents() -> list[dict]:
-    path = INTERIM / "documents.json"
+def load_documents(corpus: str = "en") -> list[dict]:
+    suffix = "" if corpus == "en" else f"_{corpus}"
+    path = INTERIM / f"documents{suffix}.json"
     if not path.exists():
         raise FileNotFoundError(
-            "no collected documents — run scripts/build_kb.py --stage collect first"
+            f"no collected documents for corpus {corpus!r} — run "
+            f"scripts/build_kb.py --stage collect --corpus {corpus} first"
         )
     return json.loads(path.read_text())
 
@@ -169,7 +171,7 @@ def build_records(documents: list[dict]) -> tuple[list[Record], BuildStats, list
                     checksum=chunk.checksum,
                     pii=bool(doc.get("pii")),
                     pii_types=list(doc.get("pii_types") or []),
-                    lang="en",
+                    lang=doc.get("lang", "en"),
                     kind=chunk.kind,
                     doc_id=doc["doc_id"],
                     ordinal=chunk.ordinal,
@@ -194,6 +196,8 @@ def write_schema_doc(
     stats: BuildStats,
     duplicate_pairs: list,
     embedding_dimension: int,
+    corpus: str = "en",
+    multilingual: bool = False,
 ) -> None:
     """Write the schema deliverable.
 
@@ -248,7 +252,9 @@ def write_schema_doc(
         f"| Records indexed | {stats.records} |",
         f"| Table records | {stats.tables} |",
         f"| Records carrying masked personal data | {stats.pii_records} |",
-        f"| Embedding model | `{model_name()}` ({embedding_dimension} dimensions) |",
+        f"| Corpus | `{corpus}` |",
+        f"| Embedding model | `{model_name(multilingual)}` "
+        f"({embedding_dimension} dimensions) |",
         f"| Median record length | "
         f"{sorted(r.word_count for r in records)[len(records) // 2] if records else 0} words |",
         "",
@@ -344,11 +350,13 @@ def write_schema_doc(
             lines.append(f"| … | {len(duplicate_pairs) - 20} more | |")
 
     lines.append("")
-    (REPORT_DIR / "schema.md").write_text("\n".join(lines))
+    name = "schema.md" if corpus == "en" else f"schema_{corpus}.md"
+    (REPORT_DIR / name).write_text("\n".join(lines))
 
 
-def main() -> None:
-    documents = load_documents()
+def main(corpus: str = "en") -> None:
+    multilingual = corpus != "en"
+    documents = load_documents(corpus)
     records, stats, duplicate_pairs = build_records(documents)
     if not records:
         raise RuntimeError("chunking produced no records")
@@ -357,17 +365,21 @@ def main() -> None:
     print(f"dropped {stats.unanswerable_removed} unanswerable fragments")
     print(f"removed {stats.duplicates_removed} near-duplicates, {stats.records} records remain")
 
-    kb = KnowledgeBase()
+    kb_file = ROOT / ("kb.sqlite" if corpus == "en" else f"kb_{corpus}.sqlite")
+    kb = KnowledgeBase(kb_file)
     kb.replace_all(records)
 
-    print(f"embedding {len(records)} records with {model_name()}…")
-    vectors = encode([f"{r.title}\n{r.content}" for r in records])
+    print(f"embedding {len(records)} records with {model_name(multilingual)}…")
+    vectors = encode(
+        [f"{r.title}\n{r.content}" for r in records], multilingual=multilingual
+    )
     kb.build_vector_index(vectors)
 
     kb.set_build_info(
         {
             "built_at": datetime.now(UTC).isoformat(timespec="seconds"),
-            "embedding_model": model_name(),
+            "corpus": corpus,
+            "embedding_model": model_name(multilingual),
             "embedding_dimension": str(vectors.shape[1]),
             "record_count": str(len(records)),
         }
@@ -375,7 +387,8 @@ def main() -> None:
     write_metadata(
         {
             "built_at": datetime.now(UTC).isoformat(timespec="seconds"),
-            "embedding_model": model_name(),
+            "corpus": corpus,
+            "embedding_model": model_name(multilingual),
             "embedding_dimension": int(vectors.shape[1]),
             "records": len(records),
             "documents": stats.documents,
@@ -384,9 +397,12 @@ def main() -> None:
             "categories": kb.category_counts(),
         }
     )
-    write_schema_doc(kb, stats, duplicate_pairs, int(vectors.shape[1]))
+    write_schema_doc(
+        kb, stats, duplicate_pairs, int(vectors.shape[1]),
+        corpus=corpus, multilingual=multilingual,
+    )
 
     print(f"categories: {kb.category_counts()}")
-    print(f"database: {Path(kb.path).name}  vectors: {faiss_path().name}")
-    print("report: deliverables/q2_kb/schema.md")
+    print(f"database: {Path(kb.path).name}  vectors: {faiss_path(kb.path).name}")
+    print(f"report: deliverables/q2_kb/{'schema.md' if corpus == 'en' else f'schema_{corpus}.md'}")
     kb.close()

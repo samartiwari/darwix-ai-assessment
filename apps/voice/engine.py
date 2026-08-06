@@ -26,6 +26,7 @@ from core import llm
 from core.kb.retrieve import RetrievalResult, Retriever
 from core.telemetry import Trace
 
+ROOT = Path(__file__).resolve().parents[2]
 PACK_DIR = Path(__file__).resolve().parent.parent / "packs"
 
 STAGES = ("greeting", "consent", "qualifying", "answering", "action", "closed")
@@ -154,6 +155,13 @@ SCHEMA_INSTRUCTION = """Reply with a single JSON object and nothing else:
 - "insufficient_context" — the caller asked something factual and CONTEXT does
                    not answer it. Leave "reply" empty; approved wording is used
                    instead. Never fill the gap from your own knowledge.
+
+Judge "intent" from what the caller actually said, never from the CONTEXT
+records. CONTEXT is retrieved by similarity and often contains a record about
+handovers, objections or complaints when the caller has raised none of them. A
+record describing how to transfer a call is not the caller asking to be
+transferred. "Yes, go ahead", "sige po", "iya, silakan" and similar are
+cooperative replies giving you permission to continue.
 
 Set a slot only when the caller stated it. Never guess a value.
 
@@ -344,7 +352,34 @@ class Engine:
 
     def __init__(self, pack_id: str, retriever: Retriever | None = None) -> None:
         self.pack = Pack.load(pack_id)
-        self.retriever = retriever or Retriever()
+        self.retriever = retriever or self._retriever_for(self.pack)
+
+    @staticmethod
+    def _retriever_for(pack: Pack) -> Retriever:
+        """Open the knowledge base this market uses.
+
+        A pack may name its own database. The Philippine and Indonesian markets
+        share a multilingual corpus with its own embedding model and its own
+        calibrated threshold, so pointing them at the English index would compare
+        scores that are not comparable.
+        """
+        from core.kb.store import KnowledgeBase
+
+        kb_file = pack.get("kb_path")
+        if not kb_file:
+            return Retriever()
+
+        path = ROOT / kb_file
+        if not path.exists():
+            raise FileNotFoundError(
+                f"pack {pack.id!r} needs {kb_file}, which has not been built — "
+                "run scripts/build_kb.py --corpus multilingual"
+            )
+        return Retriever(
+            kb=KnowledgeBase(path),
+            multilingual=True,
+            min_score=pack.get("retrieval_min_score"),
+        )
 
     def greeting(self) -> str:
         return self.pack.text("greeting")
@@ -392,8 +427,13 @@ class Engine:
         # factual claim" and "made an unsupported claim" alike made the agent
         # answer "I don't have that information" to a caller stating their age.
         asked_something_factual = intent in ("question", "objection", "out_of_scope")
-        unsupported = source == "insufficient_context" or (
-            asked_something_factual and retrieval.abstained
+        unsupported = (
+            source == "insufficient_context"
+            or (asked_something_factual and retrieval.abstained)
+            # An out-of-scope question always gets the approved wording. Left to
+            # improvise, the model produced a polite deflection rather than
+            # stating plainly that it does not have the information.
+            or intent == "out_of_scope"
         )
 
         # The model's own report is not sufficient. Any policy figure it states
