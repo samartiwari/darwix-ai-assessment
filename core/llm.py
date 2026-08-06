@@ -57,7 +57,10 @@ def _groq_model() -> str:
 
 
 def _gemini_model() -> str:
-    return os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    # An alias, not a pinned version: gemini-2.5-flash returns 404 for keys
+    # created recently, with the message that it is no longer available to new
+    # users. An alias survives a version being retired.
+    return os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 
 
 def _call_groq(
@@ -97,6 +100,14 @@ def _call_groq(
 def _call_gemini(
     messages: list[dict], temperature: float, max_tokens: int, json_mode: bool
 ) -> Reply:
+    """Generate with Gemini.
+
+    The token budget is a real trap here. Current flash models reason before
+    answering, and those tokens count against max_output_tokens: asked for the
+    single word "ready" with a budget of 10, the call succeeded and returned an
+    empty string, because thinking consumed the whole allowance. A budget that is
+    generous relative to the expected reply is required, not merely polite.
+    """
     from google import genai
     from google.genai import types
 
@@ -152,6 +163,12 @@ def chat(
     for index, (name, call) in enumerate(order):
         try:
             reply = call(messages, temperature, max_tokens, json_mode)
+            # An empty reply is a failure, not a success. A provider that returns
+            # no text without raising would otherwise end the fallback chain and
+            # hand an empty string to the caller, which reads downstream as the
+            # model having nothing to say rather than as an outage.
+            if not reply.text.strip():
+                raise RuntimeError("provider returned an empty reply")
             reply.fell_back = index > 0
             if trace:
                 trace.note(llm_provider=reply.provider, llm_model=reply.model)
