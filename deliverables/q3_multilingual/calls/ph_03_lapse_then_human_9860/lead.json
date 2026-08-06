@@ -1,0 +1,24 @@
+{
+  "lead_reference": "AF-2026-08-PH_03_LAPSE_THEN_HUMAN_9860",
+  "created_at": "2026-08-06T18:24:50+00:00",
+  "market": "ph_life_taglish",
+  "brand": "Kalinga Life",
+  "channel": "inbound_web_call",
+  "outcome": "incomplete",
+  "captured": {},
+  "missing_required": [
+    "policyholder_confirmed",
+    "payment_status",
+    "payment_intent"
+  ],
+  "unresolved_conflicts": [],
+  "escalated": false,
+  "escalation_reason": null,
+  "requires_underwriter_review": false,
+  "turns": 3,
+  "records_cited": [
+    "kb_objection_int_009_004",
+    "kb_objection_int_009_007"
+  ],
+  "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+}

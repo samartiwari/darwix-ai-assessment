@@ -1,0 +1,72 @@
+[
+  {
+    "trace_id": "e6618b27172a",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T18:24:36.583+00:00",
+    "total_ms": 3906.34,
+    "stages": {
+      "caller_synthesis": 1244.17,
+      "asr": 354.74,
+      "retrieval": 128.76,
+      "llm": 561.03,
+      "agent_synthesis": 1617.64
+    },
+    "cumulative": {
+      "caller_synthesis": 1244.17,
+      "asr": 1598.92,
+      "retrieval": 1727.67,
+      "llm": 2288.7,
+      "agent_synthesis": 3906.34
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_provider": "groq",
+    "llm_model": "llama-3.3-70b-versatile"
+  },
+  {
+    "trace_id": "0cfd49a30f28",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T18:24:40.490+00:00",
+    "total_ms": 5220.16,
+    "stages": {
+      "caller_synthesis": 1263.28,
+      "asr": 395.29,
+      "retrieval": 110.19,
+      "llm": 1150.76,
+      "agent_synthesis": 2300.63
+    },
+    "cumulative": {
+      "caller_synthesis": 1263.28,
+      "asr": 1658.57,
+      "retrieval": 1768.76,
+      "llm": 2919.53,
+      "agent_synthesis": 5220.16
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_error": "groq: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kz8w8tzbetbbm2wgmyqw22cy` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98112, Requested 2188. Please try again in 4m19.2s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}; gemini: RuntimeError: GEMINI_API_KEY is not set"
+  },
+  {
+    "trace_id": "dee6df15f7ee",
+    "kind": "recorded_turn",
+    "started_wall": "2026-08-06T18:24:45.710+00:00",
+    "total_ms": 3419.33,
+    "stages": {
+      "caller_synthesis": 1639.64,
+      "asr": 373.71,
+      "retrieval": 115.79,
+      "llm": 179.24,
+      "agent_synthesis": 1110.96
+    },
+    "cumulative": {
+      "caller_synthesis": 1639.64,
+      "asr": 2013.34,
+      "retrieval": 2129.13,
+      "llm": 2308.37,
+      "agent_synthesis": 3419.33
+    },
+    "asr_provider": "groq",
+    "asr_model": "whisper-large-v3-turbo",
+    "llm_error": "groq: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kz8w8tzbetbbm2wgmyqw22cy` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98106, Requested 2034. Please try again in 2m0.96s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}; gemini: RuntimeError: GEMINI_API_KEY is not set"
+  }
+]

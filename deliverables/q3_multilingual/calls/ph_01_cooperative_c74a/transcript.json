@@ -1,0 +1,341 @@
+{
+  "scenario": "ph_01_cooperative",
+  "pack": "ph_life_taglish",
+  "market": "Philippines",
+  "brand": "Kalinga Life",
+  "state": {
+    "call_id": "ph_01_cooperative_c74a",
+    "pack_id": "ph_life_taglish",
+    "stage": "qualifying",
+    "slots": {
+      "policyholder_confirmed": "yes",
+      "payment_intent": "Friday, after sweldo"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Opo, sige po, pwede po tayo mag-usap.",
+        "agent": "Salamat po, Ma'am. Kayo po ba mismo ang policyholder, o kapamilya po?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_007",
+            "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.648
+          },
+          {
+            "record_id": "kb_objection_int_007_008",
+            "title": "\"Saya mau bicara sama orang\" — meminta petugas manusia",
+            "source_url": "internal://id_amanah_objections.md",
+            "section_path": "Amanah Finance — Penanganan Keberatan dan Naskah Disetujui (Indonesia) > \"Saya mau bicara sama orang\" — meminta petugas manusia",
+            "category": "objection",
+            "version": "1.0",
+            "similarity": 0.606
+          }
+        ],
+        "retrieval_confidence": 0.648,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1189.01,
+          "asr": 568.63,
+          "retrieval": 13525.11,
+          "llm": 577.82
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "Opo, ako po mismo ang policyholder.",
+        "agent": "Salamat po, Ma'am. Naalala po ba ninyo kung nabayaran na po ang premium para sa buwang ito, o hindi pa po?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_004",
+            "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.517
+          },
+          {
+            "record_id": "kb_objection_int_009_007",
+            "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.512
+          }
+        ],
+        "retrieval_confidence": 0.517,
+        "retrieval_abstained": false,
+        "slots_captured": {
+          "policyholder_confirmed": "yes"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1332.22,
+          "asr": 372.69,
+          "retrieval": 121.08,
+          "llm": 825.15
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "Hindi pa po nabayaran yung premium para sa buwan na ito.",
+        "agent": "Naiintindihan po namin, Ma'am. Kailan po kaya kayo pwedeng magbayad?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_001",
+            "title": "\"Wala po akong pera ngayon\" — cannot pay right now",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Wala po akong pera ngayon\" — cannot pay right now",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.631
+          },
+          {
+            "record_id": "kb_objection_int_007_001",
+            "title": "\"Belum ada uang, Pak/Bu\" — belum bisa bayar",
+            "source_url": "internal://id_amanah_objections.md",
+            "section_path": "Amanah Finance — Penanganan Keberatan dan Naskah Disetujui (Indonesia) > \"Belum ada uang, Pak/Bu\" — belum bisa bayar",
+            "category": "objection",
+            "version": "1.0",
+            "similarity": 0.601
+          }
+        ],
+        "retrieval_confidence": 0.631,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1436.95,
+          "asr": 396.39,
+          "retrieval": 145.05,
+          "llm": 691.71
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 4,
+        "caller": "Sa Friday po pagkatapos ng sweldo.",
+        "agent": "Sige po, Ma'am. Sa Friday po kayo magbabayad ng premium, pagkatapos ng sweldo. Pwede po namin i-settle yung payment status niyo pagkatapos ng payment, para po ma-update yung records ninyo.",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_004",
+            "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.532
+          },
+          {
+            "record_id": "kb_objection_int_009_006",
+            "title": "\"Yung nag-refer po sa akin sa bank, siya na lang po\" — wants the bank officer",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Yung nag-refer po sa akin sa bank, siya na lang po\" — wants the bank officer",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.53
+          }
+        ],
+        "retrieval_confidence": 0.532,
+        "retrieval_abstained": false,
+        "slots_captured": {
+          "payment_intent": "Friday, after sweldo"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1690.63,
+          "asr": 412.34,
+          "retrieval": 109.63,
+          "llm": 1017.74
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 5,
+        "caller": "Sag cash po, mas madali po sa akin.",
+        "agent": "Pwede po ba nating i-settle yung payment sa Friday, Ma'am, para po ma-update yung records ninyo?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_007_003",
+            "title": "\"Bisa nggak bayar setengah dulu\" — pembayaran sebagian",
+            "source_url": "internal://id_amanah_objections.md",
+            "section_path": "Amanah Finance — Penanganan Keberatan dan Naskah Disetujui (Indonesia) > \"Bisa nggak bayar setengah dulu\" — pembayaran sebagian",
+            "category": "objection",
+            "version": "1.0",
+            "similarity": 0.549
+          },
+          {
+            "record_id": "kb_objection_int_009_003",
+            "title": "\"Mahal po masyado ang premium\" — premium is too expensive",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Mahal po masyado ang premium\" — premium is too expensive",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.542
+          }
+        ],
+        "retrieval_confidence": 0.549,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1360.82,
+          "asr": 435.46,
+          "retrieval": 115.83,
+          "llm": 775.14
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [
+      "policyholder_confirmed",
+      "payment_status",
+      "payment_intent"
+    ],
+    "outcome": "incomplete",
+    "started_at": "2026-08-06T18:23:30+00:00"
+  },
+  "citations": [
+    {
+      "record_id": "kb_objection_int_009_007",
+      "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.648
+    },
+    {
+      "record_id": "kb_objection_int_007_008",
+      "title": "\"Saya mau bicara sama orang\" — meminta petugas manusia",
+      "source_url": "internal://id_amanah_objections.md",
+      "section_path": "Amanah Finance — Penanganan Keberatan dan Naskah Disetujui (Indonesia) > \"Saya mau bicara sama orang\" — meminta petugas manusia",
+      "category": "objection",
+      "version": "1.0",
+      "similarity": 0.606
+    },
+    {
+      "record_id": "kb_objection_int_009_004",
+      "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.517
+    },
+    {
+      "record_id": "kb_objection_int_009_001",
+      "title": "\"Wala po akong pera ngayon\" — cannot pay right now",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Wala po akong pera ngayon\" — cannot pay right now",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.631
+    },
+    {
+      "record_id": "kb_objection_int_007_001",
+      "title": "\"Belum ada uang, Pak/Bu\" — belum bisa bayar",
+      "source_url": "internal://id_amanah_objections.md",
+      "section_path": "Amanah Finance — Penanganan Keberatan dan Naskah Disetujui (Indonesia) > \"Belum ada uang, Pak/Bu\" — belum bisa bayar",
+      "category": "objection",
+      "version": "1.0",
+      "similarity": 0.601
+    },
+    {
+      "record_id": "kb_objection_int_009_006",
+      "title": "\"Yung nag-refer po sa akin sa bank, siya na lang po\" — wants the bank officer",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Yung nag-refer po sa akin sa bank, siya na lang po\" — wants the bank officer",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.53
+    },
+    {
+      "record_id": "kb_objection_int_007_003",
+      "title": "\"Bisa nggak bayar setengah dulu\" — pembayaran sebagian",
+      "source_url": "internal://id_amanah_objections.md",
+      "section_path": "Amanah Finance — Penanganan Keberatan dan Naskah Disetujui (Indonesia) > \"Bisa nggak bayar setengah dulu\" — pembayaran sebagian",
+      "category": "objection",
+      "version": "1.0",
+      "similarity": 0.549
+    },
+    {
+      "record_id": "kb_objection_int_009_003",
+      "title": "\"Mahal po masyado ang premium\" — premium is too expensive",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Mahal po masyado ang premium\" — premium is too expensive",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.542
+    }
+  ],
+  "lead": {
+    "lead_reference": "AF-2026-08-PH_01_COOPERATIVE_C74A",
+    "created_at": "2026-08-06T18:24:11+00:00",
+    "market": "ph_life_taglish",
+    "brand": "Kalinga Life",
+    "channel": "inbound_web_call",
+    "outcome": "incomplete",
+    "captured": {
+      "policyholder_confirmed": "yes",
+      "payment_intent": "Friday, after sweldo"
+    },
+    "missing_required": [
+      "payment_status"
+    ],
+    "unresolved_conflicts": [],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 5,
+    "records_cited": [
+      "kb_objection_int_009_007",
+      "kb_objection_int_007_008",
+      "kb_objection_int_009_004",
+      "kb_objection_int_009_001",
+      "kb_objection_int_007_001",
+      "kb_objection_int_009_006",
+      "kb_objection_int_007_003",
+      "kb_objection_int_009_003"
+    ],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

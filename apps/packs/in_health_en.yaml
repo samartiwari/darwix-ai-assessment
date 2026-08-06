@@ -33,6 +33,10 @@ fallback_no_information: >
   can have a licensed advisor confirm it for you. Would a callback tomorrow
   morning work?
 
+technical_difficulty: >
+  I am having trouble on my side just now, and I do not want to give you
+  wrong information. May I have an advisor call you back?
+
 escalation: >
   Of course. I will arrange for a licensed advisor to speak with you. They will
   call you back at the number you are speaking from.

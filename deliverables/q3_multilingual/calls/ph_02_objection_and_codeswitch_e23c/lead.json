@@ -1,0 +1,28 @@
+{
+  "lead_reference": "AF-2026-08-PH_02_OBJECTION_AND_CODESWITCH_E23C",
+  "created_at": "2026-08-06T18:24:32+00:00",
+  "market": "ph_life_taglish",
+  "brand": "Kalinga Life",
+  "channel": "inbound_web_call",
+  "outcome": "incomplete",
+  "captured": {
+    "existing_cover": "group insurance from work"
+  },
+  "missing_required": [
+    "policyholder_confirmed",
+    "payment_status",
+    "payment_intent"
+  ],
+  "unresolved_conflicts": [],
+  "escalated": false,
+  "escalation_reason": null,
+  "requires_underwriter_review": false,
+  "turns": 4,
+  "records_cited": [
+    "kb_objection_int_009_007",
+    "kb_objection_int_009_004",
+    "kb_objection_int_009_003",
+    "kb_policy_rule_int_008_004"
+  ],
+  "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+}

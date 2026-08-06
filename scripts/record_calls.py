@@ -106,6 +106,85 @@ SCENARIOS: dict[str, list[Scenario]] = {
             expect={"escalated": True, "outcome": "escalated"},
         ),
     ],
+    "ph_life_taglish": [
+        Scenario(
+            name="ph_01_cooperative",
+            covers="Cooperative customer, natural Taglish, agrees a payment date",
+            caller_voice_language="fil-male",
+            utterances=[
+                "Opo, sige po, pwede po tayo mag-usap.",
+                "Opo, ako po mismo ang policyholder.",
+                "Hindi pa po nabayaran yung premium para sa buwan na ito.",
+                "Sa Friday po, pagkatapos ng sweldo.",
+                "Sa GCash po, mas madali po sa akin.",
+            ],
+            expect={"escalated": False},
+        ),
+        Scenario(
+            name="ph_02_objection_and_codeswitch",
+            covers="Sector objection plus mixed English finance terms inside Filipino",
+            caller_voice_language="fil-male",
+            utterances=[
+                "Opo, ako po ang policyholder.",
+                "Hindi pa po, kasi mahal po masyado ang premium ngayon.",
+                "Meron na po kasi akong coverage sa work, group insurance po.",
+                "Ilang araw po ba yung grace period bago ma-lapse?",
+            ],
+            expect={"grounded_turns_at_least": 1},
+        ),
+        Scenario(
+            name="ph_03_lapse_then_human",
+            covers="Lapsed-policy question, then a request for a person, staying in Filipino",
+            caller_voice_language="fil-male",
+            utterances=[
+                "Opo, kapatid po ako ng policyholder.",
+                "Na-lapse na po daw yung policy niya, pwede pa po ba i-reinstate?",
+                "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+            ],
+            expect={"escalated": True, "outcome": "escalated"},
+        ),
+    ],
+    "id_multifinance": [
+        Scenario(
+            name="id_01_cooperative_formal",
+            covers="Cooperative customer in formal Bahasa Indonesia",
+            caller_voice_language="id-male",
+            utterances=[
+                "Iya, silakan, saya ada waktu.",
+                "Benar, saya pemilik kontrak pembiayaannya.",
+                "Belum saya bayar, Bu, minggu ini rencananya.",
+                "Lewat transfer virtual account saja.",
+            ],
+            expect={"escalated": False},
+        ),
+        Scenario(
+            name="id_02_colloquial_objection",
+            covers="Colloquial register and a sector objection about the late-payment penalty",
+            caller_voice_language="id-male",
+            utterances=[
+                "Iya bener, saya sendiri.",
+                "Belum, belum ada uang bulan ini.",
+                "Dendanya kok gede banget ya, itung-itungannya gimana sih?",
+                "Bisa nggak tenornya diperpanjang biar cicilannya turun?",
+            ],
+            expect={"grounded_turns_at_least": 1},
+        ),
+        Scenario(
+            name="id_03_regional_and_human",
+            covers=(
+                "Javanese-inflected Indonesian lexis and particles, then escalation. "
+                "Tests regionally marked wording, not acoustic accent — see the ASR report"
+            ),
+            caller_voice_language="id-male",
+            utterances=[
+                "Nggih, monggo Bu, silakan.",
+                "Lha nggih, kulo sing gadhah kontrak niku.",
+                "Angsurane sampun telat rong wulan og, piye niki?",
+                "Kulo pengen ngomong karo wong tenan mawon nggih.",
+            ],
+            expect={"escalated": True},
+        ),
+    ],
 }
 
 

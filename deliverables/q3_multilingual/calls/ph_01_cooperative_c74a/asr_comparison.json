@@ -1,0 +1,42 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Opo, sige po, pwede po tayo mag-usap.",
+    "transcribed": "Opo, sige po, pwede po tayo mag-usap.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 2,
+    "spoken": "Opo, ako po mismo ang policyholder.",
+    "transcribed": "Opo, ako po mismo ang policyholder.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 3,
+    "spoken": "Hindi pa po nabayaran yung premium para sa buwan na ito.",
+    "transcribed": "Hindi pa po nabayaran yung premium para sa buwan na ito.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 4,
+    "spoken": "Sa Friday po, pagkatapos ng sweldo.",
+    "transcribed": "Sa Friday po pagkatapos ng sweldo.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 5,
+    "spoken": "Sa GCash po, mas madali po sa akin.",
+    "transcribed": "Sag cash po, mas madali po sa akin.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  }
+]

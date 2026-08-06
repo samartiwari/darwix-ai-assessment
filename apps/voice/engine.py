@@ -100,6 +100,7 @@ class Turn:
     latency_ms: dict = field(default_factory=dict)
     provider: str = ""
     ungrounded_figures: list[str] = field(default_factory=list)
+    model_error: str | None = None
 
 
 @dataclass
@@ -415,7 +416,18 @@ class Engine:
         reply = llm.chat(messages, temperature=0.2, max_tokens=500, json_mode=True, trace=trace)
         trace.mark("llm")
 
-        parsed = reply.as_json() or {}
+        # A failed or unparseable model reply is not the same thing as having no
+        # information, and the two were indistinguishable: both produced "I don't
+        # have that information", so a rate limit read as a knowledge-base gap in
+        # the transcripts. They are now separated and the failure is recorded.
+        parsed = reply.as_json()
+        model_error: str | None = None
+        if reply.error:
+            model_error = reply.error
+        elif parsed is None:
+            model_error = f"unparseable reply: {reply.text[:120]!r}"
+        parsed = parsed or {}
+
         intent = str(parsed.get("intent") or "unknown")
         source = str(parsed.get("answer_source") or "none_needed")
         spoken = " ".join(str(parsed.get("reply") or "").split())
@@ -444,7 +456,11 @@ class Engine:
 
         # Approved wording replaces model output where improvising is the failure
         # mode: an unanswerable question, and a handover.
-        if intent == "escalation_request":
+        if model_error is not None:
+            spoken = pack.text("technical_difficulty") or pack.text("fallback_no_information")
+            source = "model_error"
+            trace.note(model_error=model_error)
+        elif intent == "escalation_request":
             spoken = pack.text("escalation")
             state.escalated = True
             state.escalation_reason = state.escalation_reason or "caller asked for a person"
@@ -455,7 +471,7 @@ class Engine:
             if stray:
                 trace.note(ungrounded_figures=stray)
 
-        grounded = source != "insufficient_context"
+        grounded = source not in ("insufficient_context", "model_error")
 
         if conflicts:
             state.conflicts = list(dict.fromkeys(state.conflicts + conflicts))
@@ -479,6 +495,7 @@ class Engine:
             intent=intent,
             grounded=grounded,
             answer_source=source,
+            model_error=model_error,
             stage=state.stage,
             citations=cited,
             retrieval_confidence=round(retrieval.confidence, 3),

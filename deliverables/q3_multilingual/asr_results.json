@@ -1,0 +1,322 @@
+{
+  "Philippines (Filipino / Taglish)": [
+    {
+      "probes": "English finance nouns inside Filipino grammar",
+      "spoken": "Magandang araw po, tungkol po ito sa premium ng policy ko.",
+      "heard": "Magandang araw po tungkol po ito sa premium ng policy ko.",
+      "wer": 0.0,
+      "differences": [],
+      "terms_expected": [
+        "premium",
+        "policy"
+      ],
+      "terms_preserved": [
+        "premium",
+        "policy"
+      ],
+      "voice": "fil-PH-BlessicaNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 676,
+      "audio": "deliverables/q3_multilingual/asr_samples/philippines_filipino_taglish_01.mp3"
+    },
+    {
+      "probes": "Filipino affix na- attached to the English stem 'lapse'",
+      "spoken": "Na-lapse na po yung policy ko kaya hindi na po active ang coverage.",
+      "heard": "Nalaps na po yung policy ko kaya hindi na po active ang coverage.",
+      "wer": 0.143,
+      "differences": [
+        "na lapse → nalaps"
+      ],
+      "terms_expected": [
+        "policy",
+        "coverage"
+      ],
+      "terms_preserved": [
+        "policy",
+        "coverage"
+      ],
+      "voice": "fil-PH-BlessicaNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 442,
+      "audio": "deliverables/q3_multilingual/asr_samples/philippines_filipino_taglish_02.mp3"
+    },
+    {
+      "probes": "Filipino affix i- attached to English stems 'settle' and 'reinstate'",
+      "spoken": "Pwede po ba natin i-settle ngayon, o i-reinstate na lang po?",
+      "heard": "Pwede po ba natin isettle ngayon o i-reinstate na lang po?",
+      "wer": 0.154,
+      "differences": [
+        "i settle → isettle"
+      ],
+      "terms_expected": [
+        "settle",
+        "reinstate"
+      ],
+      "terms_preserved": [
+        "settle",
+        "reinstate"
+      ],
+      "voice": "fil-PH-AngeloNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 406,
+      "audio": "deliverables/q3_multilingual/asr_samples/philippines_filipino_taglish_03.mp3"
+    },
+    {
+      "probes": "multi-word English term inside a Filipino question",
+      "spoken": "Ilang araw po ang grace period bago ma-lapse ang policy?",
+      "heard": "Ilang araw po ang grace period bago malaps ang policy.",
+      "wer": 0.182,
+      "differences": [
+        "ma lapse → malaps"
+      ],
+      "terms_expected": [
+        "grace period",
+        "policy"
+      ],
+      "terms_preserved": [
+        "grace period",
+        "policy"
+      ],
+      "voice": "fil-PH-BlessicaNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 391,
+      "audio": "deliverables/q3_multilingual/asr_samples/philippines_filipino_taglish_04.mp3"
+    },
+    {
+      "probes": "three consecutive English insurance terms",
+      "spoken": "Sino po ang beneficiary at may critical illness rider po ba ako?",
+      "heard": "Sino po ang beneficiary at may critical illness rider po ba ako?",
+      "wer": 0.0,
+      "differences": [],
+      "terms_expected": [
+        "beneficiary",
+        "critical illness",
+        "rider"
+      ],
+      "terms_preserved": [
+        "beneficiary",
+        "critical illness",
+        "rider"
+      ],
+      "voice": "fil-PH-BlessicaNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 455,
+      "audio": "deliverables/q3_multilingual/asr_samples/philippines_filipino_taglish_05.mp3"
+    },
+    {
+      "probes": "brand name, Filipino noun and English weekday together",
+      "spoken": "Magbabayad po ako sa GCash pagkatapos ng sweldo sa Friday.",
+      "heard": "Magbabayad po ako sa cash pagkatapos ng sweldo sa Friday.",
+      "wer": 0.1,
+      "differences": [
+        "gcash → cash"
+      ],
+      "terms_expected": [
+        "GCash",
+        "sweldo"
+      ],
+      "terms_preserved": [
+        "sweldo"
+      ],
+      "voice": "fil-PH-AngeloNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 355,
+      "audio": "deliverables/q3_multilingual/asr_samples/philippines_filipino_taglish_06.mp3"
+    }
+  ],
+  "Indonesia (standard Bahasa Indonesia)": [
+    {
+      "probes": "core payment vocabulary in formal register",
+      "spoken": "Angsuran bulan ini sudah jatuh tempo, tenor sisa lima bulan lagi.",
+      "heard": "Angsuran bulan ini sudah jatuh tempo. Tenor sisa 5 bulan lagi.",
+      "wer": 0.091,
+      "differences": [
+        "lima → 5"
+      ],
+      "terms_expected": [
+        "angsuran",
+        "jatuh tempo",
+        "tenor"
+      ],
+      "terms_preserved": [
+        "angsuran",
+        "jatuh tempo",
+        "tenor"
+      ],
+      "voice": "id-ID-GadisNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 415,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_standard_bahasa_in_01.mp3"
+    },
+    {
+      "probes": "a spoken decimal figure inside a penalty explanation",
+      "spoken": "Dendanya nol koma satu persen per hari dari nilai yang tertunggak.",
+      "heard": "Dendanya 0,1% per hari dari nilai yang tertunggak.",
+      "wer": 0.364,
+      "differences": [
+        "nol koma satu persen → 0 1"
+      ],
+      "terms_expected": [
+        "denda",
+        "persen"
+      ],
+      "terms_preserved": [
+        "denda"
+      ],
+      "voice": "id-ID-GadisNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 398,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_standard_bahasa_in_02.mp3"
+    },
+    {
+      "probes": "the English-derived abbreviation DP alongside Indonesian terms",
+      "spoken": "DP minimum lima belas persen untuk pembiayaan motor baru.",
+      "heard": "DP minimum 15% untuk pembiayaan motor baru.",
+      "wer": 0.333,
+      "differences": [
+        "lima belas persen → 15"
+      ],
+      "terms_expected": [
+        "DP",
+        "pembiayaan"
+      ],
+      "terms_preserved": [
+        "DP",
+        "pembiayaan"
+      ],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 362,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_standard_bahasa_in_03.mp3"
+    },
+    {
+      "probes": "colloquial contraction 'nggak' and colloquial word order",
+      "spoken": "Belum ada uang bulan ini, bisa nggak cicilannya diperpanjang?",
+      "heard": "Belum ada uang bulan ini, bisa nggak cicilannya diperpanjang?",
+      "wer": 0.0,
+      "differences": [],
+      "terms_expected": [
+        "cicilan"
+      ],
+      "terms_preserved": [
+        "cicilan"
+      ],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 366,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_standard_bahasa_in_04.mp3"
+    },
+    {
+      "probes": "colloquial 'udah' and 'kok' with an English loan phrase",
+      "spoken": "Udah saya transfer kok kemarin lewat virtual account.",
+      "heard": "Udah saya transfer kau kemarin lewat virtual account.",
+      "wer": 0.125,
+      "differences": [
+        "kok → kau"
+      ],
+      "terms_expected": [
+        "transfer",
+        "virtual account"
+      ],
+      "terms_preserved": [
+        "transfer",
+        "virtual account"
+      ],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 364,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_standard_bahasa_in_05.mp3"
+    }
+  ],
+  "Indonesia (Javanese-inflected, outside Jakarta speech)": [
+    {
+      "probes": "Javanese affirmative, politeness particle, possessive -e and numeral 'rong wulan'",
+      "spoken": "Nggih, monggo Bu, angsurane sampun telat rong wulan og.",
+      "heard": "Gih, monggo bu, angsurane sampun telat ronggulan ob.",
+      "wer": 0.444,
+      "differences": [
+        "nggih → gih",
+        "rong wulan og → ronggulan ob"
+      ],
+      "terms_expected": [
+        "angsuran"
+      ],
+      "terms_preserved": [
+        "angsuran"
+      ],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 401,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_javanese_inflected_01.mp3"
+    },
+    {
+      "probes": "Javanese pronouns and verbs in place of Indonesian equivalents",
+      "spoken": "Kulo pengen ngomong karo wong tenan mawon nggih.",
+      "heard": "Kulo pengen ngomong karawang tenan mawon gih.",
+      "wer": 0.375,
+      "differences": [
+        "karo wong → karawang",
+        "nggih → gih"
+      ],
+      "terms_expected": [],
+      "terms_preserved": [],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 352,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_javanese_inflected_02.mp3"
+    },
+    {
+      "probes": "Javanese relative marker 'sing' and demonstrative 'niku'",
+      "spoken": "Lha nggih, kulo sing gadhah kontrak pembiayaan niku.",
+      "heard": "Langgih, kulus hingga dah kontrak pembiayaan Niko.",
+      "wer": 0.75,
+      "differences": [
+        "lha nggih kulo sing gadhah → langgih kulus hingga dah",
+        "niku → niko"
+      ],
+      "terms_expected": [
+        "kontrak",
+        "pembiayaan"
+      ],
+      "terms_preserved": [
+        "kontrak",
+        "pembiayaan"
+      ],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 368,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_javanese_inflected_03.mp3"
+    },
+    {
+      "probes": "high-register Javanese with the Indonesian loan 'denda'",
+      "spoken": "Mbok bilih saged, dendane dipun kirangi sekedhik nggih Bu.",
+      "heard": "Embok bilisaget, dendane dipunkirangi sekedik ngibu.",
+      "wer": 0.889,
+      "differences": [
+        "mbok bilih saged → embok bilisaget",
+        "dipun kirangi sekedhik nggih bu → dipunkirangi sekedik ngibu"
+      ],
+      "terms_expected": [],
+      "terms_preserved": [],
+      "voice": "id-ID-ArdiNeural",
+      "provider": "groq",
+      "fell_back": false,
+      "latency_ms": 403,
+      "audio": "deliverables/q3_multilingual/asr_samples/indonesia_javanese_inflected_04.mp3"
+    }
+  ]
+}

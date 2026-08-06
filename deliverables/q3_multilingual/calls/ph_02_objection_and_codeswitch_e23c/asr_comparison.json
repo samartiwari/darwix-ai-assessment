@@ -1,0 +1,34 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Opo, ako po ang policyholder.",
+    "transcribed": "Opo, ako po ang policyholder.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 2,
+    "spoken": "Hindi pa po, kasi mahal po masyado ang premium ngayon.",
+    "transcribed": "Hindi pa po kasi mahal po masyado ang premium ngayon.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 3,
+    "spoken": "Meron na po kasi akong coverage sa work, group insurance po.",
+    "transcribed": "Meron na po kasi akong coverage sa work group insurance po.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 4,
+    "spoken": "Ilang araw po ba yung grace period bago ma-lapse?",
+    "transcribed": "Ilang araw po ba yung grace period bago malaps?",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  }
+]

@@ -1,0 +1,227 @@
+{
+  "scenario": "ph_02_objection_and_codeswitch",
+  "pack": "ph_life_taglish",
+  "market": "Philippines",
+  "brand": "Kalinga Life",
+  "state": {
+    "call_id": "ph_02_objection_and_codeswitch_e23c",
+    "pack_id": "ph_life_taglish",
+    "stage": "answering",
+    "slots": {
+      "existing_cover": "group insurance from work"
+    },
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Opo, ako po ang policyholder.",
+        "agent": "Salamat po, Ma'am. Kayo po ba ay nakapagbayad na ng premium para sa buwan na ito, o may balance po ba?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_007",
+            "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.538
+          },
+          {
+            "record_id": "kb_objection_int_009_004",
+            "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.528
+          }
+        ],
+        "retrieval_confidence": 0.538,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1765.24,
+          "asr": 395.86,
+          "retrieval": 114.74,
+          "llm": 713.16
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "Hindi pa po kasi mahal po masyado ang premium ngayon.",
+        "agent": "Naiintindihan po, Ma'am. Isang option po, kung monthly po ang mode niyo ngayon, mas mababa po ang total kapag annual. Kung ang concern po ay ang buwanang bayad talaga, meron po tayong term plan, ang Kalinga Family Shield — P1,250 po kada buwan para sa two million face amount, thirty five years old.",
+        "intent": "objection",
+        "grounded": true,
+        "answer_source": "context",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_003",
+            "title": "\"Mahal po masyado ang premium\" — premium is too expensive",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Mahal po masyado ang premium\" — premium is too expensive",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.624
+          }
+        ],
+        "retrieval_confidence": 0.624,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1267.39,
+          "asr": 357.51,
+          "retrieval": 106.37,
+          "llm": 625.15
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "Meron na po kasi akong coverage sa work group insurance po.",
+        "agent": "Maganda po yan, Ma'am. Ang usual po lang sa group coverage sa work, natatapos po kapag umalis o nag-resign — hindi po nakakasama sa inyo pag-alis. Ang personal policy po ay sa inyo talaga, kahit magpalit po kayo ng trabaho.",
+        "intent": "objection",
+        "grounded": true,
+        "answer_source": "context",
+        "stage": "answering",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_004",
+            "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.702
+          }
+        ],
+        "retrieval_confidence": 0.702,
+        "retrieval_abstained": false,
+        "slots_captured": {
+          "existing_cover": "group insurance from work"
+        },
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1299.2,
+          "asr": 359.2,
+          "retrieval": 117.09,
+          "llm": 654.86
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 4,
+        "caller": "Ilang araw po ba yung grace period bago malaps?",
+        "agent": "Tatlong pu't isang araw po, Ma'am, ang grace period bago po malapse ang policy.",
+        "intent": "question",
+        "grounded": true,
+        "answer_source": "context",
+        "stage": "qualifying",
+        "citations": [
+          {
+            "record_id": "kb_policy_rule_int_008_004",
+            "title": "Lapse and reinstatement",
+            "source_url": "internal://ph_kalinga_life_products.md",
+            "section_path": "Kalinga Life — Product and Policy Reference (Philippines) > Lapse and reinstatement",
+            "category": "policy_rule",
+            "version": "1.3",
+            "similarity": 0.548
+          }
+        ],
+        "retrieval_confidence": 0.613,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1455.3,
+          "asr": 375.23,
+          "retrieval": 120.14,
+          "llm": 638.76
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [],
+    "outcome": "incomplete",
+    "started_at": "2026-08-06T18:24:11+00:00"
+  },
+  "citations": [
+    {
+      "record_id": "kb_objection_int_009_007",
+      "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.538
+    },
+    {
+      "record_id": "kb_objection_int_009_004",
+      "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.528
+    },
+    {
+      "record_id": "kb_objection_int_009_003",
+      "title": "\"Mahal po masyado ang premium\" — premium is too expensive",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Mahal po masyado ang premium\" — premium is too expensive",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.624
+    },
+    {
+      "record_id": "kb_policy_rule_int_008_004",
+      "title": "Lapse and reinstatement",
+      "source_url": "internal://ph_kalinga_life_products.md",
+      "section_path": "Kalinga Life — Product and Policy Reference (Philippines) > Lapse and reinstatement",
+      "category": "policy_rule",
+      "version": "1.3",
+      "similarity": 0.548
+    }
+  ],
+  "lead": {
+    "lead_reference": "AF-2026-08-PH_02_OBJECTION_AND_CODESWITCH_E23C",
+    "created_at": "2026-08-06T18:24:32+00:00",
+    "market": "ph_life_taglish",
+    "brand": "Kalinga Life",
+    "channel": "inbound_web_call",
+    "outcome": "incomplete",
+    "captured": {
+      "existing_cover": "group insurance from work"
+    },
+    "missing_required": [
+      "policyholder_confirmed",
+      "payment_status",
+      "payment_intent"
+    ],
+    "unresolved_conflicts": [],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 4,
+    "records_cited": [
+      "kb_objection_int_009_007",
+      "kb_objection_int_009_004",
+      "kb_objection_int_009_003",
+      "kb_policy_rule_int_008_004"
+    ],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

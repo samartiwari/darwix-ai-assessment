@@ -1,0 +1,149 @@
+{
+  "scenario": "ph_03_lapse_then_human",
+  "pack": "ph_life_taglish",
+  "market": "Philippines",
+  "brand": "Kalinga Life",
+  "state": {
+    "call_id": "ph_03_lapse_then_human_9860",
+    "pack_id": "ph_life_taglish",
+    "stage": "qualifying",
+    "slots": {},
+    "turns": [
+      {
+        "index": 1,
+        "caller": "Opo, kapatid po ako ng policyholder.",
+        "agent": "Sige po, Ma'am. Kayo po ba mismo ang may hawak ng policy documents, o kaya po sa policyholder?",
+        "intent": "cooperative",
+        "grounded": true,
+        "answer_source": "none_needed",
+        "stage": "greeting",
+        "citations": [
+          {
+            "record_id": "kb_objection_int_009_004",
+            "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.515
+          },
+          {
+            "record_id": "kb_objection_int_009_007",
+            "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+            "source_url": "internal://ph_kalinga_objections.md",
+            "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+            "category": "objection",
+            "version": "1.2",
+            "similarity": 0.503
+          }
+        ],
+        "retrieval_confidence": 0.515,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1244.17,
+          "asr": 354.74,
+          "retrieval": 128.76,
+          "llm": 561.03
+        },
+        "provider": "groq",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 2,
+        "caller": "Nalaps na po daw yung policy niya, pwede pa po ba i-reinstate?",
+        "agent": "Ma'am, hindi po sigurado ako diyan, at ayaw ko pong manghula. Ipapa-confirm po namin sa licensed advisor namin at siya po ang magbibigay ng tamang sagot sa inyo. Okay lang po ba kung tawagan namin kayo bukas ng umaga?",
+        "intent": "unknown",
+        "grounded": false,
+        "answer_source": "insufficient_context",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.676,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1263.28,
+          "asr": 395.29,
+          "retrieval": 110.19,
+          "llm": 1150.76
+        },
+        "provider": "none",
+        "ungrounded_figures": []
+      },
+      {
+        "index": 3,
+        "caller": "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+        "agent": "Ma'am, hindi po sigurado ako diyan, at ayaw ko pong manghula. Ipapa-confirm po namin sa licensed advisor namin at siya po ang magbibigay ng tamang sagot sa inyo. Okay lang po ba kung tawagan namin kayo bukas ng umaga?",
+        "intent": "unknown",
+        "grounded": false,
+        "answer_source": "insufficient_context",
+        "stage": "qualifying",
+        "citations": [],
+        "retrieval_confidence": 0.582,
+        "retrieval_abstained": false,
+        "slots_captured": {},
+        "conflicts": [],
+        "latency_ms": {
+          "caller_synthesis": 1639.64,
+          "asr": 373.71,
+          "retrieval": 115.79,
+          "llm": 179.24
+        },
+        "provider": "none",
+        "ungrounded_figures": []
+      }
+    ],
+    "conflicts": [],
+    "escalated": false,
+    "escalation_reason": "",
+    "asked": [],
+    "outcome": "incomplete",
+    "started_at": "2026-08-06T18:24:32+00:00"
+  },
+  "citations": [
+    {
+      "record_id": "kb_objection_int_009_004",
+      "title": "\"Meron na po akong insurance sa work\" — already covered by employer",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Meron na po akong insurance sa work\" — already covered by employer",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.515
+    },
+    {
+      "record_id": "kb_objection_int_009_007",
+      "title": "\"Gusto ko po makausap ang tao\" — asks for a person",
+      "source_url": "internal://ph_kalinga_objections.md",
+      "section_path": "Kalinga Life — Objection Handling and Approved Wording (Philippines) > \"Gusto ko po makausap ang tao\" — asks for a person",
+      "category": "objection",
+      "version": "1.2",
+      "similarity": 0.503
+    }
+  ],
+  "lead": {
+    "lead_reference": "AF-2026-08-PH_03_LAPSE_THEN_HUMAN_9860",
+    "created_at": "2026-08-06T18:24:50+00:00",
+    "market": "ph_life_taglish",
+    "brand": "Kalinga Life",
+    "channel": "inbound_web_call",
+    "outcome": "incomplete",
+    "captured": {},
+    "missing_required": [
+      "policyholder_confirmed",
+      "payment_status",
+      "payment_intent"
+    ],
+    "unresolved_conflicts": [],
+    "escalated": false,
+    "escalation_reason": null,
+    "requires_underwriter_review": false,
+    "turns": 3,
+    "records_cited": [
+      "kb_objection_int_009_004",
+      "kb_objection_int_009_007"
+    ],
+    "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+  }
+}

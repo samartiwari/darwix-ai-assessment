@@ -1,0 +1,26 @@
+[
+  {
+    "turn": 1,
+    "spoken": "Opo, kapatid po ako ng policyholder.",
+    "transcribed": "Opo, kapatid po ako ng policyholder.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  },
+  {
+    "turn": 2,
+    "spoken": "Na-lapse na po daw yung policy niya, pwede pa po ba i-reinstate?",
+    "transcribed": "Nalaps na po daw yung policy niya, pwede pa po ba i-reinstate?",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": false
+  },
+  {
+    "turn": 3,
+    "spoken": "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+    "transcribed": "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+    "provider": "groq",
+    "fell_back": false,
+    "exact_match": true
+  }
+]

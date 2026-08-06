@@ -45,6 +45,10 @@ fallback_no_information: >
   menebak. Akan kami teruskan ke petugas supaya jawabannya pasti. Boleh kami
   hubungi kembali besok pagi?
 
+technical_difficulty: >
+  Mohon maaf, ada kendala di sistem kami saat ini, dan saya tidak ingin
+  memberi informasi yang salah. Boleh kami hubungi kembali?
+
 escalation: >
   Baik, tentu. Saya sambungkan ke petugas kami dan beliau yang akan menghubungi
   Bapak. Terima kasih atas kesabarannya.

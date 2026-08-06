@@ -1,0 +1,128 @@
+{
+  "ph_life_taglish": [
+    {
+      "scenario": "ph_03_lapse_then_human",
+      "covers": "Lapsed-policy question, then a request for a person, staying in Filipino",
+      "call_id": "ph_03_lapse_then_human_36b1",
+      "directory": "deliverables/q3_multilingual/calls/ph_03_lapse_then_human_36b1",
+      "outcome": "incomplete",
+      "escalated": false,
+      "conflicts": [],
+      "slots": {},
+      "turns": [
+        {
+          "index": 1,
+          "caller": "Opo, kapatid po ako ng policyholder.",
+          "agent": "Sige po, Ma'am. Kayo po ba mismo ang may hawak ng policy documents, o kaya po sa policyholder?",
+          "intent": "cooperative",
+          "answer_source": "none_needed",
+          "abstained": false,
+          "confidence": 0.515,
+          "citations": [
+            "kb_objection_int_009_004",
+            "kb_objection_int_009_007"
+          ],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 969.08,
+            "asr": 665.73,
+            "retrieval": 13270.86,
+            "llm": 697.45
+          }
+        },
+        {
+          "index": 2,
+          "caller": "Nalaps na po daw yung policy niya, pwede pa po ba i-reinstate?",
+          "agent": "Ma'am, may problema po sa system namin ngayon, at ayaw ko pong magbigay ng maling impormasyon. Pwede po bang tawagan namin kayo ulit?",
+          "intent": "unknown",
+          "answer_source": "model_error",
+          "abstained": false,
+          "confidence": 0.676,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1002.95,
+            "asr": 370.56,
+            "retrieval": 119.75,
+            "llm": 962.83
+          }
+        },
+        {
+          "index": 3,
+          "caller": "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+          "agent": "Ma'am, may problema po sa system namin ngayon, at ayaw ko pong magbigay ng maling impormasyon. Pwede po bang tawagan namin kayo ulit?",
+          "intent": "unknown",
+          "answer_source": "model_error",
+          "abstained": false,
+          "confidence": 0.582,
+          "citations": [],
+          "conflicts": [],
+          "ungrounded_figures": [],
+          "latency_ms": {
+            "caller_synthesis": 1072.41,
+            "asr": 362.36,
+            "retrieval": 113.99,
+            "llm": 181.87
+          }
+        }
+      ],
+      "asr": [
+        {
+          "turn": 1,
+          "spoken": "Opo, kapatid po ako ng policyholder.",
+          "transcribed": "Opo, kapatid po ako ng policyholder.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        },
+        {
+          "turn": 2,
+          "spoken": "Na-lapse na po daw yung policy niya, pwede pa po ba i-reinstate?",
+          "transcribed": "Nalaps na po daw yung policy niya, pwede pa po ba i-reinstate?",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": false
+        },
+        {
+          "turn": 3,
+          "spoken": "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+          "transcribed": "Ay, mas okay na po sa akin makausap ang tunay na tao.",
+          "provider": "groq",
+          "fell_back": false,
+          "exact_match": true
+        }
+      ],
+      "expect": {
+        "escalated": true,
+        "outcome": "escalated"
+      },
+      "lead": {
+        "lead_reference": "AF-2026-08-PH_03_LAPSE_THEN_HUMAN_36B1",
+        "created_at": "2026-08-06T18:26:46+00:00",
+        "market": "ph_life_taglish",
+        "brand": "Kalinga Life",
+        "channel": "inbound_web_call",
+        "outcome": "incomplete",
+        "captured": {},
+        "missing_required": [
+          "policyholder_confirmed",
+          "payment_status",
+          "payment_intent"
+        ],
+        "unresolved_conflicts": [],
+        "escalated": false,
+        "escalation_reason": null,
+        "requires_underwriter_review": false,
+        "turns": 3,
+        "records_cited": [
+          "kb_objection_int_009_004",
+          "kb_objection_int_009_007"
+        ],
+        "note": "Preliminary eligibility only. No cover is promised and premiums quoted on the call are indicative and subject to underwriting."
+      },
+      "wall_seconds": 27.1
+    }
+  ]
+}
